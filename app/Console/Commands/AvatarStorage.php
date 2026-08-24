@@ -28,10 +28,6 @@ class AvatarStorage extends Command
      */
     protected $description = 'Manage avatar storage';
 
-    public $found = 0;
-
-    public $notFetched = 0;
-
     public $fixed = 0;
 
     public $missing = 0;
@@ -250,14 +246,6 @@ class AvatarStorage extends Command
     protected function incr($name)
     {
         switch ($name) {
-            case 'found':
-                $this->found = $this->found + 1;
-                break;
-
-            case 'notFetched':
-                $this->notFetched = $this->notFetched + 1;
-                break;
-
             case 'fixed':
                 $this->fixed++;
                 break;
