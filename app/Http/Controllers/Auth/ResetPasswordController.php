@@ -9,11 +9,13 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
+#[Middleware('guest')]
 class ResetPasswordController extends Controller
 {
     /*
@@ -35,16 +37,6 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = '/i/web';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
 
     /**
      * Get the password reset validation rules.

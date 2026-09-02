@@ -7,12 +7,16 @@ use App\Models\Profile;
 use App\Services\AccountService;
 use App\Services\AdminShadowFilterService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class AdminShadowFilterController extends Controller
+class AdminShadowFilterController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(['auth', 'admin']);
+        return [
+            new Middleware(['auth', 'admin']),
+        ];
     }
 
     public function home(Request $request)
@@ -37,7 +41,7 @@ class AdminShadowFilterController extends Controller
                     ->pluck('id')
                     ->toArray();
 
-                return $q->whereIn('item_type', ['App\Profile', 'App\Models\Profile'])->whereIn('item_id', $ids);
+                return $q->whereIn('item_type', ['App\Profile', \App\Models\Profile::class])->whereIn('item_id', $ids);
             })
             ->latest()
             ->paginate(10)

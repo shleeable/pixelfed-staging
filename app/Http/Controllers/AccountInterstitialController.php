@@ -7,14 +7,11 @@ use App\Models\Status;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
+#[Middleware('auth')]
 class AccountInterstitialController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function get(Request $request): RedirectResponse|View
     {
         $interstitial = $request->user()

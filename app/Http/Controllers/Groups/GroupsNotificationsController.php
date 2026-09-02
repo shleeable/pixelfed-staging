@@ -9,14 +9,11 @@ use App\Services\GroupService;
 use App\Services\StatusService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
+#[Middleware('auth')]
 class GroupsNotificationsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function selfGlobalNotifications(Request $request): JsonResponse
     {
         abort_if(! $request->user(), 404);

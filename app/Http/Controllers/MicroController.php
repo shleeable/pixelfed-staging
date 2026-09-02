@@ -5,19 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Status;
 use App\Transformer\Api\StatusTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\ArraySerializer;
 
+#[Middleware('auth')]
 class MicroController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function composeText(Request $request): array
     {
         $this->validate($request, [

@@ -7,14 +7,11 @@ use App\Models\Group;
 use App\Models\GroupMember;
 use App\Services\GroupService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
+#[Middleware('auth')]
 class CreateGroupsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function checkCreatePermission(Request $request): array
     {
         abort_if(! $request->user(), 404);

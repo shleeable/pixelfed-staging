@@ -9,15 +9,12 @@ use App\Models\User;
 use App\Services\ImportService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Log;
 
+#[Middleware('auth')]
 class ImportPostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function getConfig(Request $request): array
     {
         return [

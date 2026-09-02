@@ -13,12 +13,14 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Purify;
 
+#[Middleware('guest')]
 class RegisterController extends Controller
 {
     /*
@@ -40,16 +42,6 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/i/web';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
 
     public function getRegisterToken()
     {

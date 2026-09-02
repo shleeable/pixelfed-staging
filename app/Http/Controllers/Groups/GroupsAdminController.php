@@ -16,15 +16,12 @@ use App\Services\Groups\GroupPostService;
 use App\Services\GroupService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+#[Middleware('auth')]
 class GroupsAdminController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function getAdminTabs(Request $request, $id): JsonResponse
     {
         abort_if(! $request->user(), 404);

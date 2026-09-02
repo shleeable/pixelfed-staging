@@ -6,14 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Services\GroupService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
+#[Middleware('auth')]
 class GroupsDiscoverController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function getDiscoverPopular(Request $request)
     {
         abort_if(! $request->user(), 404);

@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
+#[Unguarded]
 class CustomEmoji extends Model
 {
     use HasFactory;
@@ -14,8 +16,6 @@ class CustomEmoji extends Model
     const SCAN_RE = "/(?<=[^[:alnum:]:]|\n|^):([a-zA-Z0-9_]{2,}):(?=[^[:alnum:]:]|$)/x";
 
     const CACHE_KEY = 'pf:custom_emoji:';
-
-    protected $guarded = [];
 
     public static function scan($text, $activitypub = false)
     {
@@ -37,7 +37,7 @@ class CustomEmoji extends Model
                         'id' => $emoji->id,
                         'shortcode' => $emoji->shortcode,
                         'media_path' => $emoji->media_path,
-                        'updated_at' => optional($emoji->updated_at)->toAtomString(),
+                        'updated_at' => $emoji->updated_at?->toAtomString(),
                         'disabled' => $emoji->disabled,
                     ];
                 });

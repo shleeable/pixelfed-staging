@@ -6,14 +6,11 @@ use App\Models\MediaTag;
 use App\Models\Notification;
 use App\Services\MediaTagService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
+#[Middleware('auth')]
 class MediaTagController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function usernameLookup(Request $request): void
     {
         abort(404);

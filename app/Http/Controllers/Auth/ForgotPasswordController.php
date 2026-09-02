@@ -7,9 +7,11 @@ use App\Services\BouncerService;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
+#[Middleware('guest')]
 class ForgotPasswordController extends Controller
 {
     /*
@@ -24,16 +26,6 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
 
     /**
      * Display the form to request a password reset link.

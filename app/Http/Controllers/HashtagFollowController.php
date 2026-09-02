@@ -6,15 +6,12 @@ use App\Models\Hashtag;
 use App\Models\HashtagFollow;
 use App\Services\HashtagService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 
+#[Middleware('auth')]
 class HashtagFollowController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function store(Request $request): array
     {
         $this->validate($request, [

@@ -2,15 +2,15 @@
 
 namespace App\Console\Commands\Dev;
 
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
+#[Signature('localization:generate')]
+#[Description('Generate JSON files for all available localizations')]
 class Localization extends Command
 {
-    protected $signature = 'localization:generate';
-
-    protected $description = 'Generate JSON files for all available localizations';
-
     public function __construct()
     {
         parent::__construct();
@@ -30,7 +30,7 @@ class Localization extends Command
 
     protected function buildTranslations(string $lang)
     {
-        $path = base_path("resources/lang/{$lang}");
+        $path = base_path("lang/{$lang}");
         $keys = [];
         $kcount = 0;
 
@@ -97,7 +97,7 @@ class Localization extends Command
 
     protected function discoverLangs(): array
     {
-        $path = base_path('resources/lang');
+        $path = base_path('lang');
         $languages = [];
 
         foreach (new \DirectoryIterator($path) as $io) {

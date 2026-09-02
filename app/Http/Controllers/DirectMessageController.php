@@ -26,16 +26,13 @@ use App\Util\ActivityPub\Helpers;
 use App\Util\Lexer\Autolink;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
+#[Middleware('auth')]
 class DirectMessageController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function browse(Request $request)
     {
         $this->validate($request, [

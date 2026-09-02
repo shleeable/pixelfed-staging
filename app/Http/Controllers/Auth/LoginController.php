@@ -9,9 +9,11 @@ use App\Services\BouncerService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Middleware('guest', except: ['logout'])]
 class LoginController extends Controller
 {
     /*
@@ -37,16 +39,6 @@ class LoginController extends Controller
     protected $maxAttempts = 5;
 
     protected $decayMinutes = 60;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
 
     public function showLoginForm(): View
     {

@@ -10,15 +10,12 @@ use App\Util\Lexer\Nickname;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Cache;
 
+#[Middleware('auth')]
 class ProfileAliasController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(Request $request): View
     {
         $aliases = $request->user()->profile->aliases;

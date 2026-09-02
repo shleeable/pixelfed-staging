@@ -8,14 +8,16 @@ use App\Models\UserEmailForgot;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 
+#[Middleware('guest')]
 class UserEmailForgotController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest');
+
         abort_unless(config('security.forgot-email.enabled'), 404);
     }
 

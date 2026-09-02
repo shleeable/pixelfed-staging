@@ -19,11 +19,6 @@ trait ExportSettings
 
     private const STORAGE_BASE = 'user_exports';
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function dataExport()
     {
         return view('settings.dataexport');

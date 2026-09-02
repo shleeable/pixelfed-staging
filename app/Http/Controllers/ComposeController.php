@@ -31,6 +31,7 @@ use App\Util\Media\License;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -38,13 +39,14 @@ use Illuminate\Support\Str;
 use League\Fractal;
 use League\Fractal\Serializer\ArraySerializer;
 
+#[Middleware('auth')]
 class ComposeController extends Controller
 {
     protected $fractal;
 
     public function __construct()
     {
-        $this->middleware('auth');
+
         $this->fractal = new Fractal\Manager;
         $this->fractal->setSerializer(new ArraySerializer);
     }

@@ -13,16 +13,13 @@ use App\Util\ActivityPub\Helpers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Cache;
 
+#[Middleware('auth')]
 class ProfileMigrationController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(Request $request): RedirectResponse|View
     {
         abort_if((bool) config_cache('federation.activitypub.enabled') === false, 404);

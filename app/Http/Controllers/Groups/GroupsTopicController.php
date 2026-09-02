@@ -12,14 +12,11 @@ use App\Services\Groups\GroupsLikeService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
+#[Middleware('auth')]
 class GroupsTopicController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function groupTopics(Request $request): JsonResponse
     {
         $this->validate($request, [

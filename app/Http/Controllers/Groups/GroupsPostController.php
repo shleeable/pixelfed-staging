@@ -23,16 +23,13 @@ use App\Services\PollService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Cache;
 
+#[Middleware('auth')]
 class GroupsPostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function storePost(Request $request)
     {
         $this->validate($request, [

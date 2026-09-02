@@ -10,14 +10,11 @@ use App\Services\Groups\GroupAccountService;
 use App\Services\GroupService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
+#[Middleware('auth')]
 class GroupsApiController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     protected function toJson($group, $pid = false)
     {
         return GroupService::get($group->id, $pid);

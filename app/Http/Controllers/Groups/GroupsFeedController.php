@@ -13,15 +13,12 @@ use App\Services\RelationshipService;
 use App\Services\UserFilterService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Cache;
 
+#[Middleware('auth')]
 class GroupsFeedController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function getSelfFeed(Request $request): JsonResponse
     {
         abort_if(! $request->user(), 404);
@@ -114,7 +111,7 @@ class GroupsFeedController extends Controller
     {
         $group = Group::findOrFail($id);
         $user = $request->user();
-        $pid = optional($user)->profile_id ?? false;
+        $pid = $user?->profile_id ?? false;
         abort_if(! $group->isMember($pid), 404);
         $max = $request->input('max_id');
         $limit = $request->limit ?? 3;

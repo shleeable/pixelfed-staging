@@ -11,16 +11,13 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
+#[Middleware('auth')]
 class SeasonalController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function yearInReview(): View
     {
         abort_if(now()->gt('2021-03-01 00:00:00'), 404);

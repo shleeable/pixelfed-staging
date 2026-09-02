@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use App\Services\AccountService;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[Unguarded]
 class AdminShadowFilter extends Model
 {
     use HasFactory;
-
-    protected $guarded = [];
 
     protected function casts(): array
     {
@@ -22,7 +22,7 @@ class AdminShadowFilter extends Model
 
     public function account()
     {
-        if (in_array($this->item_type, ['App\Profile', 'App\Models\Profile'])) {
+        if (in_array($this->item_type, ['App\Profile', \App\Models\Profile::class])) {
             return AccountService::get($this->item_id, true);
         }
     }

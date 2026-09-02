@@ -8,19 +8,21 @@ namespace App\Http\Controllers;
 // use App\Models\UserFilter;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
 // use Illuminate\Support\Facades\Cache;
 // use League\Fractal;
 // use League\Fractal\Serializer\ArraySerializer;
 
+#[Middleware('auth')]
+#[Middleware('twofactor')]
 class TimelineController extends Controller
 {
     // protected $fractal;
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('twofactor');
+
         // $this->fractal = new Fractal\Manager;
         // $this->fractal->setSerializer(new ArraySerializer);
     }

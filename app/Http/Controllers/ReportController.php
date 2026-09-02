@@ -11,16 +11,13 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 
+#[Middleware('auth')]
 class ReportController extends Controller
 {
     protected $profile;
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function showForm(Request $request): View
     {

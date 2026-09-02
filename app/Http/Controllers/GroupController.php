@@ -24,16 +24,13 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+#[Middleware('auth')]
 class GroupController extends GroupFederationController
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(Request $request): View
     {
         abort_unless(config('groups.enabled'), 404);
@@ -70,7 +67,7 @@ class GroupController extends GroupFederationController
     {
         abort_unless(config('groups.enabled'), 404);
         $group = Group::find($gid);
-        $pid = optional($request->user())->profile_id ?? false;
+        $pid = $request->user()?->profile_id ?? false;
 
         if (! $group || $group->status) {
             return response()->view('groups.unavailable')->setStatusCode(404);
@@ -91,7 +88,7 @@ class GroupController extends GroupFederationController
     {
         abort_unless(config('groups.enabled'), 404);
         $group = Group::whereNull('status')->findOrFail($id);
-        $pid = optional($request->user())->profile_id ?? false;
+        $pid = $request->user()?->profile_id ?? false;
 
         $group = $this->toJson($group, $pid);
 

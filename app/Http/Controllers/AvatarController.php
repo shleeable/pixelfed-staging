@@ -7,15 +7,14 @@ use App\Models\Avatar;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
+#[Middleware('auth')]
 class AvatarController extends Controller
 {
-    public function __construct()
-    {
-        return $this->middleware('auth');
-    }
+    public function __construct() {}
 
     public function store(Request $request): RedirectResponse
     {

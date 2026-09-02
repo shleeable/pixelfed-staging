@@ -8,17 +8,14 @@ use App\Models\AdminInvite;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Mail;
 
+#[Middleware('admin')]
+#[Middleware('dangerzone')]
+#[Middleware('twofactor')]
 class AdminUserInviteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('admin');
-        $this->middleware('dangerzone');
-        $this->middleware('twofactor');
-    }
-
     public function index(): View
     {
         $invites = AdminInvite::orderByDesc('created_at')->simplePaginate(25);

@@ -8,34 +8,29 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUniqueUntilProcessing;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\Attributes\DeleteWhenMissingModels;
+use Illuminate\Queue\Attributes\FailOnTimeout;
+use Illuminate\Queue\Attributes\MaxExceptions;
+use Illuminate\Queue\Attributes\Timeout;
+use Illuminate\Queue\Attributes\Tries;
+use Illuminate\Queue\Attributes\UniqueFor;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
+#[Timeout(300)]
+#[Tries(3)]
+#[MaxExceptions(1)]
+#[FailOnTimeout]
+#[DeleteWhenMissingModels]
+#[UniqueFor(3600)]
 class MediaDeletePipeline implements ShouldBeUniqueUntilProcessing, ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $media;
-
-    public $timeout = 300;
-
-    public $tries = 3;
-
-    public $maxExceptions = 1;
-
-    public $failOnTimeout = true;
-
-    public $deleteWhenMissingModels = true;
-
-    /**
-     * The number of seconds after which the job's unique lock will be released.
-     *
-     * @var int
-     */
-    public $uniqueFor = 3600;
 
     /**
      * Get the unique ID for the job.
@@ -85,8 +80,8 @@ class MediaDeletePipeline implements ShouldBeUniqueUntilProcessing, ShouldQueue
                 'thumbnail_path' => $media->thumbnail_path,
                 'hls_path' => $media->hls_path,
                 'remote_media' => (bool) $media->remote_media,
-                'created_at' => optional($media->created_at)->toDateTimeString(),
-                'updated_at' => optional($media->updated_at)->toDateTimeString(),
+                'created_at' => $media->created_at?->toDateTimeString(),
+                'updated_at' => $media->updated_at?->toDateTimeString(),
             ]);
 
             return 1;

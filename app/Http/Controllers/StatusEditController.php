@@ -10,14 +10,11 @@ use App\Services\Status\UpdateStatusService;
 use App\Services\StatusService;
 use App\Util\Lexer\Autolink;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
+#[Middleware('auth:api')]
 class StatusEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     public function store(StoreStatusEditRequest $request, $id)
     {
         $validated = $request->validated();

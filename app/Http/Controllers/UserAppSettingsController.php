@@ -7,14 +7,11 @@ use App\Http\Resources\UserAppSettingsResource;
 use App\Models\UserAppSettings;
 use App\Services\Account\AccountAppSettingsService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
+#[Middleware('auth')]
 class UserAppSettingsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function get(Request $request)
     {
         abort_if(! $request->user(), 403);

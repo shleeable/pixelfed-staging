@@ -7,15 +7,12 @@ use App\Services\PlaceService;
 use App\Services\StatusService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
+#[Middleware('auth')]
 class PlaceController extends Controller
 {
     const PLACES_CACHE_KEY = 'pf:places:sid-cache:by:placeid:';
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function show(Request $request, int $id, $slug): View
     {

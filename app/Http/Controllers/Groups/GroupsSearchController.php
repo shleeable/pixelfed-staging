@@ -13,15 +13,12 @@ use App\Services\Groups\GroupActivityPubService;
 use App\Services\GroupService;
 use App\Util\ActivityPub\Helpers;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Cache;
 
+#[Middleware('auth')]
 class GroupsSearchController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function inviteFriendsToGroup(Request $request): array
     {
         abort_if(! $request->user(), 404);

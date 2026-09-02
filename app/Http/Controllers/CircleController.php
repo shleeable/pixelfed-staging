@@ -6,15 +6,12 @@ use App\Models\Circle;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Validation\Rule;
 
+#[Middleware('auth')]
 class CircleController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function home(Request $request): View
     {
         $circles = Circle::whereProfileId($request->user()->profile->id)

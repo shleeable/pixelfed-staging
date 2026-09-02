@@ -8,16 +8,13 @@ use App\Models\Like;
 use App\Models\Status;
 use App\Services\StatusService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
+#[Middleware('auth')]
 class LikeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function store(Request $request)
     {
         $this->validate($request, [

@@ -12,10 +12,12 @@ use App\Util\Lexer\Autolink;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
+#[Middleware('auth')]
 class SearchController extends Controller
 {
     public $tokens = [];
@@ -25,11 +27,6 @@ class SearchController extends Controller
     public $hash = '';
 
     public $cacheKey = 'api:search:tag:';
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function searchAPI(Request $request): JsonResponse
     {

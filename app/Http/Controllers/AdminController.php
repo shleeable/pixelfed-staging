@@ -32,6 +32,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -39,6 +40,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
+#[Middleware('admin')]
+#[Middleware('dangerzone')]
+#[Middleware('twofactor')]
 class AdminController extends Controller
 {
     use AdminAutospamController,
@@ -52,13 +56,6 @@ class AdminController extends Controller
         AdminSettingsController,
         // AdminStorageController,
         AdminUserController;
-
-    public function __construct()
-    {
-        $this->middleware('admin');
-        $this->middleware('dangerzone');
-        $this->middleware('twofactor');
-    }
 
     public function home(): View
     {

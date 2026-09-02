@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Util\ActivityPub\Helpers;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
+#[Middleware('auth')]
 class FollowerController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function store(Request $request): void
     {
         abort(422, 'Deprecated API Endpoint, use /api/v1/accounts/{id}/follow or /api/v1/accounts/{id}/unfollow instead.');

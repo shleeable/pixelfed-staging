@@ -5,15 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\MediaBlocklist;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
+#[Middleware('auth')]
+#[Middleware('admin')]
 class MediaBlocklistController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('admin');
-    }
-
     public function add(Request $request): RedirectResponse
     {
         $this->validate($request, [

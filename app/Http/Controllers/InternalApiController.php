@@ -16,26 +16,28 @@ use App\Services\DiscoverService;
 use App\Services\FollowerService;
 use App\Services\ModLogService;
 use App\Services\PublicTimelineService;
-use App\Services\StatusService; // StatusMediaContainerTransformer,
-use App\Services\UserFilterService;
+use App\Services\StatusService;
+use App\Services\UserFilterService; // StatusMediaContainerTransformer,
 use App\Transformer\Api\StatusTransformer;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rule;
 use League\Fractal;
 use League\Fractal\Serializer\ArraySerializer;
 
+#[Middleware('auth')]
 class InternalApiController extends Controller
 {
     protected $fractal;
 
     public function __construct()
     {
-        $this->middleware('auth');
+
         $this->fractal = new Fractal\Manager;
         $this->fractal->setSerializer(new ArraySerializer);
     }
