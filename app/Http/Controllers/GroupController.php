@@ -42,14 +42,6 @@ class GroupController extends GroupFederationController
         return view('layouts.spa');
     }
 
-    public function home(Request $request): View
-    {
-        abort_unless(config('groups.enabled'), 404);
-        abort_if(! $request->user(), 404);
-
-        return view('layouts.spa');
-    }
-
     public function show(Request $request, $id, $path = false)
     {
         abort_unless(config('groups.enabled'), 404);
@@ -590,9 +582,6 @@ class GroupController extends GroupFederationController
     {
         abort_unless(config('groups.enabled'), 404);
         abort_if(! $request->user(), 404);
-        if (! $request->user()) {
-            return redirect("/{$pid}");
-        }
 
         $group = Group::find($id);
         $cid = $request->user()->profile_id;
@@ -624,9 +613,6 @@ class GroupController extends GroupFederationController
     {
         abort_unless(config('groups.enabled'), 404);
         abort(404, 'Not yet implemented');
-        $group = Group::findOrFail($id);
-
-        return view('groups.invite', compact('group'));
     }
 
     public function groupShortLinkRedirect(Request $request, $hid): RedirectResponse
