@@ -48,24 +48,6 @@ class GroupFederationController extends Controller
                 ],
                 'url' => $group->permalink(),
             ];
-
-            // Dead - after a return
-            // if ($group->metadata && isset($group->metadata['avatar'])) {
-            //     $res['icon'] = [
-            //         'type' => 'Image',
-            //         'url' => $group->metadata['avatar']['url'],
-            //     ];
-            // }
-
-            // if ($group->metadata && isset($group->metadata['header'])) {
-            //     $res['image'] = [
-            //         'type' => 'Image',
-            //         'url' => $group->metadata['header']['url'],
-            //     ];
-            // }
-            // ksort($res);
-
-            // return $res;
         });
     }
 
