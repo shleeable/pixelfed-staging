@@ -14,14 +14,11 @@ use App\Models\GroupMedia;
 use App\Models\GroupPost;
 use App\Services\Groups\GroupCommentService;
 use App\Services\Groups\GroupMediaService;
-use App\Services\Groups\GroupPostService;
 use App\Services\Groups\GroupsLikeService;
 use App\Services\GroupService;
-use App\Util\Lexer\Autolink;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Purify;
 
 class GroupsCommentController extends Controller
@@ -109,8 +106,6 @@ class GroupsCommentController extends Controller
             $parent = GroupPost::whereGroupId($gid)->findOrFail($sid);
             $status->status_id = $parent->id;
         }
-        // $autolink = Purify::clean(Autolink::create()->autolink($caption));
-        // $autolink = str_replace('/discover/tags/', '/groups/' . $gid . '/topics/', $autolink);
 
         $status->caption = Purify::clean($caption);
         $status->visibility = 'public';
@@ -119,10 +114,6 @@ class GroupsCommentController extends Controller
         $status->save();
 
         NewCommentPipeline::dispatch($parent, $status)->onQueue('groups');
-        // todo: perform in job
-        // $parent->reply_count = $parent->reply_count ? $parent->reply_count + $parent->reply_count : 1;
-        // $parent->save();
-        // GroupPostService::del($parent->group_id, $parent->id);
 
         GroupService::log(
             $group->id,
@@ -135,10 +126,6 @@ class GroupsCommentController extends Controller
             GroupPost::class,
             $status->id
         );
-
-        // GroupCommentPipeline::dispatch($parent, $status, $gp);
-        // NewStatusPipeline::dispatch($status, $gp);
-        // GroupPostService::del($group->id, GroupService::sidToGid($group->id, $parent->id));
 
         // todo: perform in job
         $s = GroupCommentService::get($status->group_id, $status->id);
