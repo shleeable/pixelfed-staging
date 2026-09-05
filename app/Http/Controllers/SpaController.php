@@ -8,8 +8,6 @@ use App\Util\Localization\Localization;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use League\CommonMark\CommonMarkConverter;
 
 class SpaController extends Controller
 {
@@ -89,40 +87,6 @@ class SpaController extends Controller
         session()->put('locale', $lang);
 
         return ['language' => $lang];
-    }
-
-    public function getPrivacy(Request $request): array
-    {
-        abort_unless($request->user(), 404);
-        $body = $this->markdownToHtml('views/page/privacy.md');
-
-        return [
-            'body' => $body,
-        ];
-    }
-
-    public function getTerms(Request $request): array
-    {
-        abort_unless($request->user(), 404);
-        $body = $this->markdownToHtml('views/page/terms.md');
-
-        return [
-            'body' => $body,
-        ];
-    }
-
-    protected function markdownToHtml($src, $ttl = 600)
-    {
-        return Cache::remember(
-            'pf:doc_cache:markdown:'.$src,
-            $ttl,
-            function () use ($src) {
-                $path = resource_path($src);
-                $file = file_get_contents($path);
-                $converter = new CommonMarkConverter;
-
-                return (string) $converter->convertToHtml($file);
-            });
     }
 
     public function usernameRedirect(Request $request, $username): RedirectResponse
