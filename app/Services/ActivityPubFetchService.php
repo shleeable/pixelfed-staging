@@ -231,7 +231,7 @@ class ActivityPubFetchService
 
             $url = (string) $resolved;
 
-            return Helpers::validateUrl($url)
+            return Helpers::validateUrl($url, disableDNSCheck: true)
                 ? $url
                 : null;
         } catch (\Throwable $e) {

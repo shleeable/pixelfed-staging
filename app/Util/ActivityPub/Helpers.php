@@ -205,8 +205,10 @@ class Helpers
             }
         }
 
-        if (empty(self::resolvePublicIps($host))) {
-            return false;
+        if (! $disableDNSCheck && self::shouldCheckDNS()) {
+            if (empty(self::resolvePublicIps($host))) {
+                return false;
+            }
         }
 
         return $uri->toString();
