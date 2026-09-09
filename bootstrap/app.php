@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\AccountInterstitial;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Api\Admin as ApiAdmin;
 use App\Http\Middleware\EmailVerificationCheck;
@@ -40,7 +39,6 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Laravel\Passport\Http\Middleware\CheckToken;
 use Laravel\Passport\Http\Middleware\CheckTokenForAnyScope;
 use Laravel\Passport\Http\Middleware\CreateFreshApiToken;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
@@ -128,8 +126,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'throttle' => ThrottleRequests::class,
             'twofactor' => TwoFactorAuth::class,
             'validemail' => EmailVerificationCheck::class,
-            'interstitial' => AccountInterstitial::class,
-            'scopes' => CheckToken::class,
             'scope' => CheckTokenForAnyScope::class,
             'restricted' => RestrictedAccess::class,
         ]);
