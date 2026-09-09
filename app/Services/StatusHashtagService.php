@@ -2,15 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\Hashtag;
 use App\Models\Status;
 use App\Models\StatusHashtag;
 use App\Transformer\Api\HashtagTransformer;
 
 class StatusHashtagService
 {
-    const CACHE_KEY = 'pf:services:status-hashtag:collection:';
-
     public static function get($id, $page = 1, $stop = 9)
     {
         if ($page > 20) {
@@ -38,23 +35,6 @@ class StatusHashtagService
             ->values();
     }
 
-    public static function coldGet($id, $start = 0, $stop = 2000)
-    {
-        $stop = $stop > 2000 ? 2000 : $stop;
-        $ids = StatusHashtag::whereHashtagId($id)
-            ->whereStatusVisibility('public')
-            ->whereHas('media')
-            ->latest()
-            ->skip($start)
-            ->take($stop)
-            ->pluck('status_id');
-        foreach ($ids as $key) {
-            self::set($id, $key);
-        }
-
-        return $ids;
-    }
-
     public static function set($key, $val)
     {
         return 1;
@@ -63,16 +43,6 @@ class StatusHashtagService
     public static function del($key)
     {
         return 1;
-    }
-
-    public static function count($id)
-    {
-        $cc = Hashtag::find($id);
-        if (! $cc) {
-            return 0;
-        }
-
-        return $cc->cached_count ?? 0;
     }
 
     public static function getStatus($statusId, $hashtagId)
