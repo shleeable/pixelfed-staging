@@ -15,6 +15,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
+use App\Util\ActivityPub\Helpers;
 
 class ProfilePurgeFollowersByDomain implements ShouldBeUniqueUntilProcessing, ShouldQueue
 {
@@ -78,12 +79,20 @@ class ProfilePurgeFollowersByDomain implements ShouldBeUniqueUntilProcessing, Sh
         $pid = $this->pid;
         $domain = $this->domain;
 
+        // Match both Unicode and punycode forms so an IDN block purges
+        // followers whose profiles.domain was stored in either wire form.
+        $forms = Helpers::domainEquivalentForms($domain);
+        if (empty($forms)) {
+            $forms = [$domain];
+        }
+        $placeholders = implode(', ', array_fill(0, count($forms), '?'));
+
         $query = 'SELECT f.*
             FROM followers f
             JOIN profiles p ON p.id = f.profile_id OR p.id = f.following_id
             WHERE (f.profile_id = ? OR f.following_id = ?)
-            AND p.domain = ?;';
-        $params = [$pid, $pid, $domain];
+            AND p.domain IN ('.$placeholders.');';
+        $params = array_merge([$pid, $pid], $forms);
 
         foreach (DB::cursor($query, $params) as $n) {
             if (! $n || ! $n->id) {

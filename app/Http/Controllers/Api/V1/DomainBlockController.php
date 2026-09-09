@@ -64,11 +64,22 @@ class DomainBlockController extends Controller
 
         $domain = trim($request->input('domain'));
 
-        if (Helpers::validateUrl($domain) == false) {
+        // validateUrl canonicalizes IDN hosts to punycode and returns the
+        // canonical URL. Use that return value: parse_url() on a raw UTF-8 IDN
+        // URL corrupts multibyte bytes, whereas parse_url() on the canonical
+        // (ASCII/punycode) URL is safe.
+        $canonical = Helpers::validateUrl($domain);
+
+        if ($canonical == false) {
             return abort(500, 'Invalid domain or already blocked by server admins');
         }
 
-        $domain = strtolower(parse_url($domain, PHP_URL_HOST));
+        $host = strtolower(parse_url($canonical, PHP_URL_HOST));
+
+        // Persist the canonical (punycode) form so an IDN block row matches the
+        // wire form stored in profiles.domain. normalizeHost is idempotent for
+        // ASCII hosts; fall back to the parsed host if it cannot be normalized.
+        $domain = Helpers::normalizeHost($host) ?? $host;
 
         abort_if(config_cache('pixelfed.domain.app') == $domain, 400, 'Cannot ban your own server');
 
@@ -111,7 +122,15 @@ class DomainBlockController extends Controller
 
         $domain = strtolower(trim($request->input('domain')));
 
-        $filters = UserDomainBlock::whereProfileId($pid)->whereDomain($domain)->delete();
+        // Match both Unicode and punycode forms so an unblock removes the row
+        // regardless of which form it was stored in.
+        $forms = Helpers::domainEquivalentForms($domain);
+
+        if (empty($forms)) {
+            $forms = [$domain];
+        }
+
+        $filters = UserDomainBlock::whereProfileId($pid)->whereIn('domain', $forms)->delete();
 
         UserFilterService::domainBlocks($pid, true);
 

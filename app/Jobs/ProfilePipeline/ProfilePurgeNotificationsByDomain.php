@@ -13,6 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
+use App\Util\ActivityPub\Helpers;
 
 class ProfilePurgeNotificationsByDomain implements ShouldBeUniqueUntilProcessing, ShouldQueue
 {
@@ -76,12 +77,20 @@ class ProfilePurgeNotificationsByDomain implements ShouldBeUniqueUntilProcessing
         $pid = $this->pid;
         $domain = $this->domain;
 
+        // Match both Unicode and punycode forms so an IDN block purges
+        // notifications whose actor profiles.domain was stored in either form.
+        $forms = Helpers::domainEquivalentForms($domain);
+        if (empty($forms)) {
+            $forms = [$domain];
+        }
+        $placeholders = implode(', ', array_fill(0, count($forms), '?'));
+
         $query = 'SELECT notifications.*
             FROM profiles
             JOIN notifications on profiles.id = notifications.actor_id
             WHERE notifications.profile_id = ?
-            AND profiles.domain = ?';
-        $params = [$pid, $domain];
+            AND profiles.domain IN ('.$placeholders.')';
+        $params = array_merge([$pid], $forms);
 
         foreach (DB::cursor($query, $params) as $n) {
             if (! $n || ! $n->id) {

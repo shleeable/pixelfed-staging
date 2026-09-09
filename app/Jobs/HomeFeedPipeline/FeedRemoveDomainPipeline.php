@@ -13,6 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use App\Util\ActivityPub\Helpers;
 
 class FeedRemoveDomainPipeline implements ShouldBeUniqueUntilProcessing, ShouldQueue
 {
@@ -91,6 +92,12 @@ class FeedRemoveDomainPipeline implements ShouldBeUniqueUntilProcessing, ShouldQ
             return;
         }
         $domain = strtolower($this->domain);
+        // Match both Unicode and punycode forms so an IDN block removes posts
+        // whose URL host was emitted in either wire form.
+        $domains = Helpers::domainEquivalentForms($domain);
+        if (empty($domains)) {
+            $domains = [$domain];
+        }
         $pid = $this->pid;
         $posts = HomeTimelineService::get($pid, '0', '-1');
 
@@ -105,7 +112,7 @@ class FeedRemoveDomainPipeline implements ShouldBeUniqueUntilProcessing, ShouldQ
             if ($host === strtolower(config('pixelfed.domain.app')) || ! $host) {
                 continue;
             }
-            if ($host === $domain) {
+            if (in_array($host, $domains, true)) {
                 HomeTimelineService::rem($pid, $status['id']);
             }
         }

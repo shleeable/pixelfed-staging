@@ -270,6 +270,41 @@ class Helpers
         return true;
     }
 
+    /**
+     * Expand a host into its equivalent Unicode (U-label) and punycode
+     * (A-label) forms so byte-equality comparisons match regardless of the
+     * wire form a peer emitted. idn_to_ascii/idn_to_utf8 are idempotent on
+     * already-canonical input, so this expands symmetrically and covers
+     * pre-existing rows stored in either form without a migration.
+     *
+     * @return array<int, string>
+     */
+    public static function domainEquivalentForms(?string $domain): array
+    {
+        if (! is_string($domain) || trim($domain) === '') {
+            return [];
+        }
+
+        $domain = strtolower(trim($domain));
+        $forms = [$domain];
+
+        if (function_exists('idn_to_ascii')) {
+            $ascii = idn_to_ascii($domain, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
+            if ($ascii) {
+                $forms[] = strtolower($ascii);
+            }
+        }
+
+        if (function_exists('idn_to_utf8')) {
+            $utf8 = idn_to_utf8($domain, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
+            if ($utf8) {
+                $forms[] = strtolower($utf8);
+            }
+        }
+
+        return array_values(array_unique(array_filter($forms, fn ($v) => $v !== '')));
+    }
+
     public static function normalizeHost(?string $host): ?string
     {
         if (! is_string($host) || $host === '') {

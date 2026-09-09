@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\UserDomainBlock;
 use App\Models\UserSetting;
 use App\Transformer\Api\AccountTransformer;
+use App\Util\ActivityPub\Helpers;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -302,7 +303,15 @@ class AccountService
             return;
         }
 
-        return UserDomainBlock::whereProfileId($pid)->whereDomain($domain)->exists();
+        // Match both the Unicode and punycode forms of the host so an IDN block
+        // filters actors regardless of the wire form profiles.domain was stored in.
+        $forms = Helpers::domainEquivalentForms($domain);
+
+        if (empty($forms)) {
+            $forms = [$domain];
+        }
+
+        return UserDomainBlock::whereProfileId($pid)->whereIn('domain', $forms)->exists();
     }
 
     public static function formatNumber($num)
