@@ -37,14 +37,4 @@ return [
      */
     'client_options' => [],
 
-    /**
-     * Google Cloud Messaging.
-     *
-     * @deprecated
-     */
-    'gcm' => [
-        'key' => env('GCM_KEY'),
-        'sender_id' => env('GCM_SENDER_ID'),
-    ],
-
 ];
