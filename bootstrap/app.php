@@ -8,6 +8,7 @@ use App\Http\Middleware\GrantFirstPartyToken;
 use App\Http\Middleware\Localization;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\RestrictedAccess;
+use App\Http\Middleware\TwoFactorAuth;
 use App\Services\PendingLoginService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -127,6 +128,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'guest' => RedirectIfAuthenticated::class,
             'signed' => ValidateSignature::class,
             'throttle' => ThrottleRequests::class,
+            'twofactor' => TwoFactorAuth::class,
             'interstitial' => AccountInterstitial::class,
             'scopes' => CheckToken::class,
             'scope' => CheckTokenForAnyScope::class,

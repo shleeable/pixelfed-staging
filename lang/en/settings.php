@@ -82,8 +82,6 @@ return [
     'password.confirm_new_password' => 'Confirm new password',
 
     'privacy.privacy_settings' => 'Privacy Settings',
-    'privacy.private_account' => 'Private Account',
-    'privacy.when_your_account_is_private_only_people_you_etc' => 'When your account is private, only people you approve can see your photos and videos on pixelfed. Your existing followers won\'t be affected.',
     'privacy.disable_search_engine_indexing' => 'Disable Search Engine indexing',
     'privacy.when_your_account_is_visible_to_search_engines_etc' => 'When your account is visible to search engines, your information can be crawled and stored by search engines.',
     'privacy.not_available_when_your_account_is_private' => 'Not available when your account is private',
@@ -93,12 +91,6 @@ return [
     'privacy.when_this_option_is_enabled_your_profile_is_etc' => 'When this option is enabled, your profile is included in the Directory. Only public profiles are eligible.',
     'privacy.receive_direct_messages_from_anyone' => 'Receive Direct Messages from anyone',
     'privacy.if_selected_you_will_be_able_to_receive_messages_etc' => 'If selected, you will be able to receive messages and notifications from any user even if you do not follow them.',
-    'privacy.hide_sensitive_content_from_search_results' => 'Hide sensitive content from search results',
-    'privacy.this_prevents_posts_with_potentially_sensitive_etc' => 'This prevents posts with potentially sensitive content from displaying in your search results.',
-    'privacy.remove_blocked_and_muted_accounts' => 'Remove blocked and muted accounts',
-    'privacy.use_this_to_eliminate_search_results_from_accounts_etc' => 'Use this to eliminate search results from accounts you\'ve blocked or muted.',
-    'privacy.display_media_that_may_contain_sensitive_content' => 'Display media that may contain sensitive content',
-    'privacy.show_all_media_including_potentially_sensitive_content' => 'Show all media, including potentially sensitive content.',
     'privacy.show_follower_count' => 'Show Follower Count',
     'privacy.display_follower_count_on_profile' => 'Display follower count on profile',
     'privacy.show_following_count' => 'Show Following Count',
@@ -119,8 +111,6 @@ return [
     'privacy.months' => 'months',
     'privacy.year' => 'year',
     'privacy.remove_existing_followers' => 'Remove existing followers',
-    'privacy.allow_new_follow_requests' => 'Allow new follow requests',
-    'privacy.block_notifications_from_accounts_i_dont_follow' => 'Block notifications from accounts I don\'t follow',
     'privacy.an_error_occured_please_try_again' => 'An error occured. Please try again.',
 
     'relationships' => 'Relationships',
@@ -130,7 +120,6 @@ return [
     'relationships.hashtag' => 'Hashtag',
     'relationships.username' => 'Username',
     'relationships.action' => 'Action',
-    'relationships.unfollow' => 'Unfollow',
     'relationships.mute' => 'Mute',
     'relationships.block' => 'Block',
     'relationships.removeFollow' => 'Remove  Follow',
@@ -161,9 +150,6 @@ return [
     'security.device' => 'Device:',
     'security.browser' => 'Browser:',
     'security.last_login' => 'Last Login:',
-    'security.country' => 'Country:',
-    'security.trust' => 'Trust',
-    'security.remove_device' => 'Remove Device',
     'security.timeline_settings' => 'Timeline Settings',
     'security.show_text_only_posts' => 'Show text-only posts',
     'security.show_text_only_posts_from_accounts_you_follow_home_etc' => 'Show text-only posts from accounts you follow. (Home timeline only)',
@@ -177,10 +163,6 @@ return [
     // incomplete
     // the oauth panel is loaded from elsewhere
     'developers.oauth_has_not_been_enabled_on_this_instance' => 'OAuth has not been enabled on this instance.',
-
-    // incomplete
-    // import/ig.blade.php seems not in use anymore
-    'import.import_from_instagram' => 'Import from Instagram',
 
     'export.data_export' => 'Data Export',
     'export.we_generate_data_exports_once_per_hour_and_they_may_etc' => 'We generate data exports once per hour, and they may not contain the latest data if you\'ve requested them recently.',

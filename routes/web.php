@@ -212,6 +212,9 @@ Route::domain(config('pixelfed.domain.app'))->middleware(['localization'])->grou
 
         Route::get('auth/sudo', [AccountController::class, 'confirmPassword'])->name('password.confirm');
         Route::post('auth/sudo', [AccountController::class, 'confirmPasswordStore']);
+        Route::get('auth/checkpoint', [AccountController::class, 'twoFactorCheckpoint']);
+        Route::post('auth/checkpoint', [AccountController::class, 'twoFactorVerify'])
+            ->middleware('throttle:5,15');
 
         Route::get('results', [SearchController::class, 'results']);
         Route::post('visibility', [StatusController::class, 'toggleVisibility']);
@@ -284,7 +287,7 @@ Route::domain(config('pixelfed.domain.app'))->middleware(['localization'])->grou
         Route::get('portfolio/{username}.rss', [PortfolioController::class, 'getRssFeed']);
     });
 
-    Route::prefix('settings')->group(function () {
+    Route::prefix('settings')->middleware('twofactor')->group(function () {
         Route::redirect('/', '/settings/home');
         Route::get('home', [SettingsController::class, 'home'])
             ->name('settings');

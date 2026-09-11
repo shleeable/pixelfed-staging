@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Jobs\FollowPipeline\FollowAcceptPipeline;
 use App\Jobs\FollowPipeline\FollowPipeline;
 use App\Jobs\FollowPipeline\FollowRejectPipeline;
+use App\Models\AccountLog;
 use App\Models\Follower;
 use App\Models\FollowRequest;
 use App\Models\Notification;
 use App\Models\Profile;
+use App\Models\User;
 use App\Models\UserFilter;
 use App\Services\AccountService;
 use App\Services\FollowerService;
@@ -21,10 +23,12 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use League\Fractal;
 use League\Fractal\Serializer\ArraySerializer;
+use PragmaRX\Google2FA\Google2FA;
 
 class AccountController extends Controller
 {
@@ -437,6 +441,57 @@ class AccountController extends Controller
     }
 
     public function accountRestored(Request $request): void {}
+
+    public function twoFactorCheckpoint(Request $request): View
+    {
+        return view('auth.checkpoint');
+    }
+
+    public function twoFactorVerify(Request $request): RedirectResponse
+    {
+        $this->validate($request, [
+            'code' => 'required|string|max:32',
+        ]);
+        $user = $request->user();
+        $code = $request->input('code');
+        $google2fa = new Google2FA;
+        $verify = $google2fa->verifyKey($user->{'2fa_secret'}, $code);
+        if ($verify) {
+            $request->session()->push('2fa.session.active', true);
+
+            return redirect('/');
+        }
+
+        $log = new AccountLog;
+        $log->user_id = $user->id;
+        $log->item_id = $user->id;
+        $log->item_type = User::class;
+        $log->action = 'auth.2fa.failed';
+        $log->message = '2FA verification failed';
+        $log->link = null;
+        $log->ip_address = $request->ip();
+        $log->user_agent = $request->userAgent();
+        $log->save();
+
+        if ($request->session()->has('2fa.attempts')) {
+            $count = (int) $request->session()->get('2fa.attempts');
+            if ($count >= 3) {
+                $request->session()->forget('2fa.session.active');
+                $request->session()->forget('2fa.attempts');
+                Auth::logout();
+                $request->session()->invalidate();
+
+                return redirect('/');
+            }
+            $request->session()->put('2fa.attempts', $count + 1);
+        } else {
+            $request->session()->put('2fa.attempts', 1);
+        }
+
+        return redirect('/i/auth/checkpoint')->withErrors([
+            'code' => 'Invalid code',
+        ]);
+    }
 
     public function accountMutes(Request $request): JsonResponse
     {
