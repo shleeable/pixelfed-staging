@@ -74,6 +74,8 @@ Route::domain(config('pixelfed.domain.app'))->middleware(['localization'])->grou
     Route::post('login/verify/resend', [LoginController::class, 'resendVerification'])->middleware('throttle:3,10')->name('login.verify.resend');
     Route::post('login/verify/email', [LoginController::class, 'updatePendingEmail'])->middleware('throttle:3,10')->name('login.verify.email');
     Route::get('i/confirm-email/{userToken}/{randomToken}', [LoginController::class, 'confirmEmail'])->name('login.verify.confirm');
+    Route::get('i/auth/checkpoint', [LoginController::class, 'showCheckpoint'])->name('auth.2fa.checkpoint');
+    Route::post('i/auth/checkpoint', [LoginController::class, 'verifyCheckpoint'])->middleware('throttle:10,1');
 
     Route::get('auth/oidc/start', [RemoteOidcController::class, 'start']);
     Route::get('auth/oidc/callback', [RemoteOidcController::class, 'handleCallback']);
