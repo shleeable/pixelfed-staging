@@ -4,6 +4,7 @@ use App\Http\Middleware\AccountInterstitial;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Api\Admin as ApiAdmin;
 use App\Http\Middleware\FrameGuard;
+use App\Http\Middleware\TwoFactorAuth;
 use App\Http\Middleware\GrantFirstPartyToken;
 use App\Http\Middleware\Localization;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -90,6 +91,7 @@ return Application::configure(basePath: dirname(__DIR__))
             SubstituteBindings::class,
             CreateFreshApiToken::class,
             'restricted',
+            TwoFactorAuth::class,
         ]);
 
         $middleware->group('oauth-web', [
