@@ -49,7 +49,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest')->except(['logout', 'confirmEmail']);
+        $this->middleware('guest')->except(['logout', 'confirmEmail', 'showCheckpoint', 'verifyCheckpoint']);
     }
 
     public function showLoginForm(Request $request): View|RedirectResponse
