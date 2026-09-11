@@ -24,7 +24,8 @@ class TwoFactorAuth
                 if ($request->session()->has('2fa.session.active') !== true && ! $request->is($checkpoint) && ! $request->is('logout')) {
                     return redirect('/i/auth/checkpoint');
                 } elseif ($request->session()->has('2fa.attempts') && (int) $request->session()->get('2fa.attempts') > 3) {
-                    $request->session()->pull('2fa.attempts');
+                    $request->session()->forget('2fa.attempts');
+                    $request->session()->forget('2fa.session.active');
                     Auth::logout();
                 }
             }
