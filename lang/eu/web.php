@@ -4,16 +4,10 @@ return [
 
     'common' => [
         'comment' => 'Iruzkindu',
-        'commented' => 'Iruzkinduta',
         'comments' => 'Iruzkinak',
         'like' => 'Datsegit',
-        'liked' => 'Datsegit',
         'likes' => 'Atsegite',
         'share' => 'Partekatu',
-        'shared' => 'Partekatuta',
-        'shares' => 'Partekatze',
-        'unshare' => 'Utzi partekatzeari',
-        'bookmark' => 'Laster-marka',
 
         'cancel' => 'Utzi',
         'copyLink' => 'Kopiatu esteka',
@@ -25,7 +19,6 @@ return [
         'readMore' => 'Irakurri gehiago',
         'success' => 'Arrakastaz burutu da',
         'proceed' => 'Jarraitu',
-        'next' => 'Hurrengoa',
         'close' => 'Itxi',
         'clickHere' => 'klikatu hemen',
 
@@ -36,7 +29,6 @@ return [
 
     'site' => [
         'terms' => 'Erabilera-baldintzak',
-        'privacy' => 'Pribatutasun politika',
     ],
 
     'navmenu' => [
@@ -53,7 +45,6 @@ return [
         'directMessages' => 'Mezu zuzenak',
         'notifications' => 'Jakinarazpenak',
         'groups' => 'Taldeak',
-        'stories' => 'Istorioak',
 
         // Self links
         'profile' => 'Profila',
@@ -106,10 +97,7 @@ return [
     ],
 
     'post' => [
-        'shareToFollowers' => 'Partekatu jarraitzaileei',
-        'shareToOther' => 'Partekatu besteekin',
         'noLikes' => 'Atsegiterik ez oraindik',
-        'uploading' => 'Igotzen',
     ],
 
     'profile' => [
@@ -164,8 +152,6 @@ return [
         'modUnlistSuccess' => 'Bidalketa ondo ezkutatu da',
         'modMarkAsSpammerConfirm' => 'Ziur al zaude erabiltzaile hau zabor-bidaltzaile bezala markatu nahi duzula? Dagoeneko bidali dituen eta etorkizunean bidaliko dituen bidalketak denbora-lerroetatik ezkutatuko dira eta edukiaren abisua ezarriko zaie.',
         'modMarkAsSpammerSuccess' => 'Kontua zabor-bidaltzaile gisa ondo markatu da',
-
-        'toFollowers' => 'jarraitzaileei',
 
         'showCaption' => 'Irudiaren azalpena erakutsi',
         'showLikes' => 'Erakutsi atsegiteak',
