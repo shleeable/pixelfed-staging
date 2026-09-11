@@ -49,7 +49,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest')->except(['logout', 'confirmEmail']);
+        $this->middleware('guest')->except(['logout', 'confirmEmail', 'showCheckpoint', 'verifyCheckpoint']);
     }
 
     public function showLoginForm(Request $request): View|RedirectResponse
@@ -175,6 +175,59 @@ class LoginController extends Controller
         return redirect()->route('login');
     }
 
+    public function showCheckpoint(Request $request): View|RedirectResponse
+    {
+        $user = $request->user();
+
+        if (! $user) {
+            return redirect()->route('login');
+        }
+
+        return view('auth.checkpoint');
+    }
+
+    public function verifyCheckpoint(Request $request): Response
+    {
+        $user = $request->user();
+
+        if (! $user) {
+            return redirect()->route('login');
+        }
+
+        $request->validate([
+            'code' => 'required|string|max:32',
+        ]);
+
+        $attempts = (int) $request->session()->get('2fa.attempts', 0);
+
+        if (PendingLoginService::verifyCode($user, (string) $request->input('code'))) {
+            $request->session()->put('2fa.session.active', [true]);
+            $request->session()->forget('2fa.attempts');
+
+            return redirect($this->redirectPath());
+        }
+
+        $this->log($request, $user, 'auth.2fa.failed', '2FA verification failed');
+
+        $attempts++;
+
+        if ($attempts > 3) {
+            $request->session()->forget('2fa.attempts');
+            $request->session()->forget('2fa.session.active');
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect('/');
+        }
+
+        $request->session()->put('2fa.attempts', $attempts);
+
+        return redirect('/i/auth/checkpoint')->withErrors([
+            'code' => __('Invalid code.'),
+        ]);
+    }
+
     public function continueAfterVerification(Request $request): Response
     {
         $user = $this->pendingUser($request, PendingLoginService::STEP_VERIFY);
@@ -253,7 +306,7 @@ class LoginController extends Controller
         $user = EmailVerificationService::confirm($userToken, $randomToken);
 
         if (! $user) {
-            if (Auth::check()) {
+            if ($request->user() !== null) {
                 return redirect($this->redirectPath());
             }
 
@@ -264,7 +317,7 @@ class LoginController extends Controller
 
         $this->log($request, $user, 'account.email.verified', 'Email address verified');
 
-        if (Auth::check()) {
+        if ($request->user() !== null) {
             return redirect($this->redirectPath());
         }
 
