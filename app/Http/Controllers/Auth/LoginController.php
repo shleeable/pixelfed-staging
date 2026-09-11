@@ -49,7 +49,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest')->except(['logout', 'confirmEmail']);
+        $this->middleware('guest')->except(['logout', 'confirmEmail', 'showCheckpoint', 'verifyCheckpoint']);
     }
 
     public function showLoginForm(Request $request): View|RedirectResponse
@@ -253,7 +253,7 @@ class LoginController extends Controller
         $user = EmailVerificationService::confirm($userToken, $randomToken);
 
         if (! $user) {
-            if (Auth::check()) {
+            if ($request->user() !== null) {
                 return redirect($this->redirectPath());
             }
 
@@ -264,7 +264,7 @@ class LoginController extends Controller
 
         $this->log($request, $user, 'account.email.verified', 'Email address verified');
 
-        if (Auth::check()) {
+        if ($request->user() !== null) {
             return redirect($this->redirectPath());
         }
 
@@ -280,6 +280,69 @@ class LoginController extends Controller
         }
 
         return redirect()->route('login')->with('status', __('Email verified. Sign in to continue.'));
+    }
+
+    /**
+     * Show the 2FA checkpoint page for an already-authenticated user.
+     */
+    public function showCheckpoint(Request $request): View|RedirectResponse
+    {
+        if ($request->user() === null) {
+            return redirect()->route('login');
+        }
+
+        if (! (bool) $request->user()->{'2fa_enabled'}) {
+            return redirect($this->redirectPath());
+        }
+
+        if ($request->session()->has('2fa.session.active')) {
+            return redirect($this->redirectPath());
+        }
+
+        return view('auth.checkpoint');
+    }
+
+    /**
+     * Verify a 2FA code for an already-authenticated user.
+     */
+    public function verifyCheckpoint(Request $request): Response
+    {
+        $user = $request->user();
+
+        if ($user === null) {
+            return redirect()->route('login');
+        }
+
+        $request->validate([
+            'code' => 'required|string|max:32',
+        ]);
+
+        if (PendingLoginService::verifyCode($user, (string) $request->input('code'))) {
+            $request->session()->put('2fa.session.active', true);
+            $request->session()->forget('2fa.attempts');
+
+            return redirect($this->redirectPath());
+        }
+
+        $this->log($request, $user, 'auth.2fa.failed', '2FA verification failed');
+
+        $attempts = (int) $request->session()->get('2fa.attempts', 0) + 1;
+
+        if ($attempts > 3) {
+            $request->session()->forget('2fa.attempts');
+            $request->session()->forget('2fa.session.active');
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect('/');
+        }
+
+        $request->session()->put('2fa.attempts', $attempts);
+
+        return redirect('/i/auth/checkpoint')->withErrors([
+            'code' => __('Invalid code.'),
+        ]);
     }
 
     /**
