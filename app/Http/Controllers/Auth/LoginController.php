@@ -175,7 +175,7 @@ class LoginController extends Controller
         return redirect()->route('login');
     }
 
-    public function showCheckpoint(Request $request): Response
+    public function showCheckpoint(Request $request): View|RedirectResponse
     {
         $user = $request->user();
 
