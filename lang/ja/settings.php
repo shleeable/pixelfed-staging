@@ -82,8 +82,6 @@ return [
     'password.confirm_new_password' => '新しいパスワードをもう一度入力してください',
 
     'privacy.privacy_settings' => 'プライバシー設定',
-    'privacy.private_account' => '非公開アカウント',
-    'privacy.when_your_account_is_private_only_people_you_etc' => '非公開アカウントに設定すると、あなたが承認したアカウントだけが投稿を見ることができます。既にフォローされているアカウントは承認済と見なされます。',
     'privacy.disable_search_engine_indexing' => '検索エンジンからのアクセスを許可する',
     'privacy.when_your_account_is_visible_to_search_engines_etc' => 'チェックを入れると、あなたの公開投稿がGoogleやBingなどの検索結果にヒットするようになります。また、写真や動画も含め、あなたの投稿内容はGoogleやBingなどにも保管されるようになります。',
     'privacy.not_available_when_your_account_is_private' => '非公開アカウントの場合は、この項目は設定できません。',
@@ -93,12 +91,6 @@ return [
     'privacy.when_this_option_is_enabled_your_profile_is_etc' => 'チェックを入れると、あなたのプロフィールがこのサーバーのディレクトリ（サーバートップページにある、主なユーザーの一覧）に表示されるようになります。この項目は公開アカウントのみ設定可能です。',
     'privacy.receive_direct_messages_from_anyone' => 'フォロー外からのダイレクトメッセージを受け取る',
     'privacy.if_selected_you_will_be_able_to_receive_messages_etc' => 'チェックを入れると、フォローしていないアカウントからのダイレクトメッセージと通知も受け取れるようになります。',
-    'privacy.hide_sensitive_content_from_search_results' => 'センシティブなコンテンツを検索結果から除外する',
-    'privacy.this_prevents_posts_with_potentially_sensitive_etc' => 'Pixelfed上で検索した際、検索結果にセンシティブなコンテンツが表示されないようにします。',
-    'privacy.remove_blocked_and_muted_accounts' => 'ブロック済・ミュート済アカウントを検索結果から除外する',
-    'privacy.use_this_to_eliminate_search_results_from_accounts_etc' => 'Pixelfed上で検索した際、検索結果にブロック済やミュート済のアカウントが表示されないようにします。',
-    'privacy.display_media_that_may_contain_sensitive_content' => 'センシティブなコンテンツを常に表示する',
-    'privacy.show_all_media_including_potentially_sensitive_content' => 'センシティブなコンテンツも含め、すべての写真や動画を表示させます。',
     'privacy.show_follower_count' => 'フォロワー数を表示する',
     'privacy.display_follower_count_on_profile' => 'プロフィール欄にフォロワー数を表示します。',
     'privacy.show_following_count' => 'フォロー数を表示する',
@@ -119,8 +111,6 @@ return [
     'privacy.months' => 'ヶ月',
     'privacy.year' => '年',
     'privacy.remove_existing_followers' => '現在のフォロワーは誰も承認しない',
-    'privacy.allow_new_follow_requests' => 'フォローリクエストを受け付ける',
-    'privacy.block_notifications_from_accounts_i_dont_follow' => 'フォローしていないアカウントからの通知はブロックする',
     'privacy.an_error_occured_please_try_again' => '処理に失敗しました。もう一度試してください。',
 
     'relationships' => 'フォロー・フォロワー',
@@ -130,7 +120,6 @@ return [
     'relationships.hashtag' => 'ハッシュタグ',
     'relationships.username' => 'アカウント名',
     'relationships.action' => 'アクション',
-    'relationships.unfollow' => 'リムーブ',
     'relationships.mute' => 'ミュート',
     'relationships.block' => 'ブロック',
     'relationships.removeFollow' => 'フォローを外させる',
@@ -161,9 +150,6 @@ return [
     'security.device' => 'デバイス:',
     'security.browser' => 'ブラウザ:',
     'security.last_login' => '最終ログイン:',
-    'security.country' => '国・地域:',
-    'security.trust' => '信頼済みにする',
-    'security.remove_device' => '削除する',
     'security.timeline_settings' => 'タイムライン設定',
     'security.show_text_only_posts' => '文章のみの投稿を表示する',
     'security.show_text_only_posts_from_accounts_you_follow_home_etc' => '写真や動画のない、文章のみの投稿も表示します（ホームフィードでのみ有効となります）。',
@@ -177,10 +163,6 @@ return [
     // incomplete
     // the oauth panel is loaded from elsewhere
     'developers.oauth_has_not_been_enabled_on_this_instance' => 'OAuthはこのサーバーでは有効となっていません。',
-
-    // incomplete
-    // import/ig.blade.php seems not in use anymore
-    'import.import_from_instagram' => 'Instagramからのインポート',
 
     'export.data_export' => 'データのエクスポート',
     'export.we_generate_data_exports_once_per_hour_and_they_may_etc' => 'エクスポートは1時間に1回実行可能です。また、一度エクスポートをしてからしばらくの間は、再度エクスポートをしても最新の情報とならない場合があります。',
