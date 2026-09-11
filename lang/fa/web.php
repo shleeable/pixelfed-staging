@@ -4,16 +4,10 @@ return [
 
     'common' => [
         'comment' => 'نظر',
-        'commented' => 'نظر داده شد',
         'comments' => 'نظر',
         'like' => 'پسند',
-        'liked' => 'پسندیده شد',
         'likes' => 'پسند',
         'share' => 'هم‌رسانی',
-        'shared' => 'هم‌رسانی شد',
-        'shares' => 'هم‌رسانی',
-        'unshare' => 'ناهم‌رسانی',
-        'bookmark' => 'نشانک',
 
         'cancel' => 'لغو',
         'copyLink' => 'رونوشت از پیوند',
@@ -25,7 +19,6 @@ return [
         'readMore' => 'بیش‌تر بخوانید',
         'success' => 'موفق',
         'proceed' => 'پیشروی',
-        'next' => 'بعدی',
         'close' => 'بستن',
         'clickHere' => 'این‌جا را بزنید',
 
@@ -36,7 +29,6 @@ return [
 
     'site' => [
         'terms' => 'شرایط استفاده',
-        'privacy' => 'سیاست حریم خصوصی',
     ],
 
     'navmenu' => [
@@ -53,7 +45,6 @@ return [
         'directMessages' => 'پیام‌های مستقیم',
         'notifications' => 'اعلان‌ها',
         'groups' => 'گروه‌ها',
-        'stories' => 'داستان‌ها',
 
         // Self links
         'profile' => 'نمایه',
@@ -106,10 +97,7 @@ return [
     ],
 
     'post' => [
-        'shareToFollowers' => 'هم‌رسانی با دنبال‌کنندگان',
-        'shareToOther' => 'هم‌رسانی با دیگران',
         'noLikes' => 'هنوز پسندی موجود نیست',
-        'uploading' => 'در حال بارگذاری',
     ],
 
     'profile' => [
@@ -164,8 +152,6 @@ return [
         'modUnlistSuccess' => 'فرسته با موفقیت برون‌فهرست شد',
         'modMarkAsSpammerConfirm' => 'مطمئنید که می‌خواهید این کاربر را به عنوان هرزنامه‌نویس نشانه‌گذاری کنید؟ تمام فرسته‌های موجود و آتی روی خط زمانی به صورت برون‌فهرست درآمده و هشدار محتوا بر آن‌ها اعمال خواهد شد.',
         'modMarkAsSpammerSuccess' => 'حساب با موفقیت به عنوان هرزه‌پراکن علامت خورد',
-
-        'toFollowers' => 'به دنبال‌کنندگان',
 
         'showCaption' => 'نمایش توضیحات',
         'showLikes' => 'نمایش پسندها',
