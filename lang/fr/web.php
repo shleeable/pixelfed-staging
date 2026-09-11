@@ -4,16 +4,10 @@ return [
 
     'common' => [
         'comment' => 'Commenter',
-        'commented' => 'Commenté',
         'comments' => 'Commentaires',
         'like' => 'J\'aime',
-        'liked' => 'Aimé',
         'likes' => 'J\'aimes',
         'share' => 'Partager',
-        'shared' => 'Partagé',
-        'shares' => 'Partages',
-        'unshare' => 'Ne plus partager',
-        'bookmark' => 'Marque-page',
 
         'cancel' => 'Annuler',
         'copyLink' => 'Copier le lien',
@@ -25,7 +19,6 @@ return [
         'readMore' => 'En savoir plus',
         'success' => 'Succès',
         'proceed' => 'Continuer',
-        'next' => 'Suivant',
         'close' => 'Fermer',
         'clickHere' => 'cliquez ici',
 
@@ -36,7 +29,6 @@ return [
 
     'site' => [
         'terms' => 'Conditions d\'utilisation',
-        'privacy' => 'Politique de confidentialité',
     ],
 
     'navmenu' => [
@@ -53,7 +45,6 @@ return [
         'directMessages' => 'Messages Privés',
         'notifications' => 'Notifications',
         'groups' => 'Groupes',
-        'stories' => 'Stories',
 
         // Self links
         'profile' => 'Profil',
@@ -107,10 +98,7 @@ return [
     ],
 
     'post' => [
-        'shareToFollowers' => 'Partager avec ses abonné·e·s',
-        'shareToOther' => 'Partager avec d\'autres',
         'noLikes' => 'Aucun J\'aime pour le moment',
-        'uploading' => 'Téléversement',
     ],
 
     'profile' => [
@@ -166,8 +154,6 @@ return [
         'modMarkAsSpammerConfirm' => 'Êtes-vous sûr·e de vouloir marquer cet utilisateur·rice comme spammeur·euse ? Toutes les publications existantes et futures seront retirées des flux et un avertissement de contenu sera appliqué.',
         'modMarkAsSpammerSuccess' => 'Compte marqué avec succès comme spammeur',
 
-        'toFollowers' => 'aux abonné·e·s',
-
         'showCaption' => 'Afficher la légende',
         'showLikes' => 'Afficher les J\'aime',
         'compactMode' => 'Mode compact',
@@ -183,8 +169,6 @@ return [
     ],
 
     'timeline' => [
-        'peopleYouMayKnow' => 'Personnes que vous connaissez peut-être',
-
         'onboarding' => [
             'welcome' => 'Bienvenue',
             'thisIsYourHomeFeed' => 'Ceci est votre flux personnel, un flux chronologique des publications de comptes que vous suivez.',
