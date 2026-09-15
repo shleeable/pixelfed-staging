@@ -15,17 +15,6 @@
         </ul>
       </div>
     </div>
-    <div class="">
-{{--       <div class="card-header bg-white">
-        <span class="font-weight-bold lead">Notifications</span>
-        <span class="small float-right font-weight-bold">
-          <a href="?a=comment" class="pr-4 text-muted" title="Commented on your post"><i class="fas fa-comment fa-2x"></i></a>
-          <a href="?a=follow" class="pr-4 text-muted" title="Followed you"><i class="fas fa-user-plus fa-2x"></i></a>
-          <a href="?a=mention" class="pr-4 text-muted" title="Mentioned you"><i class="fas fa-comment-dots fa-2x"></i></a>
-          <a href="{{route('notifications')}}" class="font-weight-bold text-dark">View All</a>
-        </span>
-      </div> --}}
-    </div>
     <ul class="list-group">
 
     @if($notifications->count() > 0)
