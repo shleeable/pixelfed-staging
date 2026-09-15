@@ -4,15 +4,10 @@ return [
 
     'common' => [
         'comment' => 'Comment',
-        'commented' => 'Commented',
         'comments' => 'Comments',
         'like' => 'Like',
-        'liked' => 'Liked',
         'likes' => 'Likes',
         'share' => 'Share',
-        'shared' => 'Shared',
-        'shares' => 'Shares',
-        'unshare' => 'Unshare',
 
         'cancel' => 'Cancel',
         'copyLink' => 'Copy Link',
@@ -31,7 +26,6 @@ return [
 
     'site' => [
         'terms' => 'Terms of Use',
-        'privacy' => 'Privacy Policy',
     ],
 
     'navmenu' => [
@@ -48,7 +42,6 @@ return [
         'directMessages' => 'Direct Messages',
         'notifications' => 'Notifications',
         'groups' => 'Groups',
-        'stories' => 'Stories',
 
         // Self links
         'profile' => 'Profile',
@@ -92,10 +85,7 @@ return [
     ],
 
     'post' => [
-        'shareToFollowers' => 'Share to followers',
-        'shareToOther' => 'Share to other',
         'noLikes' => 'No likes yet',
-        'uploading' => 'Uploading',
     ],
 
     'profile' => [
@@ -147,8 +137,6 @@ return [
         'modUnlistSuccess' => 'Successfully unlisted post',
         'modMarkAsSpammerConfirm' => 'Are you sure you want to mark this user as a spammer? All existing and future posts will be unlisted on timelines and a content warning will be applied.',
         'modMarkAsSpammerSuccess' => 'Successfully marked account as spammer',
-
-        'toFollowers' => 'to Followers',
 
         'showCaption' => 'Show Caption',
         'showLikes' => 'Show Likes',
