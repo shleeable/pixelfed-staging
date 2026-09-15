@@ -82,8 +82,6 @@ return [
     'password.confirm_new_password' => '',
 
     'privacy.privacy_settings' => '',
-    'privacy.private_account' => '',
-    'privacy.when_your_account_is_private_only_people_you_etc' => '',
     'privacy.disable_search_engine_indexing' => '',
     'privacy.when_your_account_is_visible_to_search_engines_etc' => '',
     'privacy.not_available_when_your_account_is_private' => '',
@@ -93,12 +91,6 @@ return [
     'privacy.when_this_option_is_enabled_your_profile_is_etc' => '',
     'privacy.receive_direct_messages_from_anyone' => '',
     'privacy.if_selected_you_will_be_able_to_receive_messages_etc' => '',
-    'privacy.hide_sensitive_content_from_search_results' => '',
-    'privacy.this_prevents_posts_with_potentially_sensitive_etc' => '',
-    'privacy.remove_blocked_and_muted_accounts' => '',
-    'privacy.use_this_to_eliminate_search_results_from_accounts_etc' => '',
-    'privacy.display_media_that_may_contain_sensitive_content' => '',
-    'privacy.show_all_media_including_potentially_sensitive_content' => '',
     'privacy.show_follower_count' => '',
     'privacy.display_follower_count_on_profile' => '',
     'privacy.show_following_count' => '',
@@ -130,7 +122,6 @@ return [
     'relationships.hashtag' => '',
     'relationships.username' => '',
     'relationships.action' => '',
-    'relationships.unfollow' => '',
     'relationships.mute' => '',
     'relationships.block' => '',
     'relationships.removeFollow' => '',
@@ -177,10 +168,6 @@ return [
     // incomplete
     // the oauth panel is loaded from elsewhere
     'developers.oauth_has_not_been_enabled_on_this_instance' => '',
-
-    // incomplete
-    // import/ig.blade.php seems not in use anymore
-    'import.import_from_instagram' => '',
 
     'export.data_export' => '',
     'export.we_generate_data_exports_once_per_hour_and_they_may_etc' => '',
