@@ -249,20 +249,9 @@
 		data: {
 			stats: {
 				"contact": 0,
-				"contact_monthly": 0,
 				"reports": 0,
-				"reports_monthly": 0,
-				"failedjobs": 0,
 				"statuses": 0,
-				"statuses_monthly": 0,
-				"profiles": 0,
-				"users": 0,
-				"users_monthly": 0,
-				"instances": 0,
-				"media": 0,
-				"storage": 0,
-				"posts_this_week": [],
-				"posts_last_week": []
+				"users": 0
 			},
 			loaded: {
 				stats: false,
