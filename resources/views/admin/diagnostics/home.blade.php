@@ -18,23 +18,6 @@
                             Copy Diagnostics
                         </a>
                     </div>
-                    <div class="flex-grow-1">
-                        <a
-                            class="btn btn-outline-white btn-lg btn-block px-3 mb-0 copy-information"
-                            href="#">
-                            <i class="far fa-chart-network mr-1"></i>
-                            Federation Test
-                        </a>
-                    </div>
-                    <div class="flex-grow-1">
-
-                        <a
-                            class="btn btn-outline-white btn-lg btn-block px-3 mb-0 copy-information"
-                            href="#">
-                            <i class="far fa-mobile mr-1"></i>
-                            Mobile App Test
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
