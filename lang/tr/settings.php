@@ -178,10 +178,6 @@ return [
     // the oauth panel is loaded from elsewhere
     'developers.oauth_has_not_been_enabled_on_this_instance' => '',
 
-    // incomplete
-    // import/ig.blade.php seems not in use anymore
-    'import.import_from_instagram' => 'İnstagram\'dan İçe Aktar',
-
     'export.data_export' => 'Dışarı Veri Aktar',
     'export.we_generate_data_exports_once_per_hour_and_they_may_etc' => '',
     'export.statuses' => 'Durumlar',

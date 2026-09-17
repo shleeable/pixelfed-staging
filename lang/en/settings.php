@@ -178,10 +178,6 @@ return [
     // the oauth panel is loaded from elsewhere
     'developers.oauth_has_not_been_enabled_on_this_instance' => 'OAuth has not been enabled on this instance.',
 
-    // incomplete
-    // import/ig.blade.php seems not in use anymore
-    'import.import_from_instagram' => 'Import from Instagram',
-
     'export.data_export' => 'Data Export',
     'export.we_generate_data_exports_once_per_hour_and_they_may_etc' => 'We generate data exports once per hour, and they may not contain the latest data if you\'ve requested them recently.',
     'export.statuses' => 'Statuses',

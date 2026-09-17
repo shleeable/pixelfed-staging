@@ -178,10 +178,6 @@ return [
     // the oauth panel is loaded from elsewhere
     'developers.oauth_has_not_been_enabled_on_this_instance' => 'OAuthはこのサーバーでは有効となっていません。',
 
-    // incomplete
-    // import/ig.blade.php seems not in use anymore
-    'import.import_from_instagram' => 'Instagramからのインポート',
-
     'export.data_export' => 'データのエクスポート',
     'export.we_generate_data_exports_once_per_hour_and_they_may_etc' => 'エクスポートは1時間に1回実行可能です。また、一度エクスポートをしてからしばらくの間は、再度エクスポートをしても最新の情報とならない場合があります。',
     'export.statuses' => '投稿',
