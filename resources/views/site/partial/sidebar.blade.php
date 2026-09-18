@@ -19,12 +19,6 @@
       <li class="nav-item pl-3 {{request()->is('site/open-source')?'active':''}}">
         <a class="nav-link font-weight-light text-muted" href="{{route('site.opensource')}}">{{__('site.opensource')}}</a>
       </li>
-      {{-- <li class="nav-item pl-3 {{request()->is('site/banned-instances')?'active':''}}">
-        <a class="nav-link lead text-muted" href="{{route('site.bannedinstances')}}">Banned Content</a>
-      </li>
-      <li class="nav-item pl-3">
-        <a class="nav-link lead text-muted" href="#">Verification Badge</a>
-      </li> --}}
       <li class="nav-item">
         <hr>
       </li>
@@ -39,13 +33,5 @@
       <li class="nav-item pl-3 {{request()->is('site/privacy')?'active':''}}">
         <a class="nav-link font-weight-light text-muted" href="{{route('site.privacy')}}">{{__('site.privacy')}}</a>
       </li>
-      {{--
-        <li class="nav-item pl-3 {{request()->is('site/platform')?'active':''}}">
-          <a class="nav-link lead text-muted" href="{{route('site.platform')}}">Platform</a>
-        </li>
-        <li class="nav-item pl-3 {{request()->is('site/libraries')?'active':''}}">
-          <a class="nav-link lead text-muted" href="{{route('site.libraries')}}">Libraries</a>
-        </li>
-      --}}
     </ul>
   </div>
