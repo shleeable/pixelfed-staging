@@ -6,24 +6,6 @@
     <h3 class="font-weight-bold">Safety Tips</h3>
   </div>
   <hr>
-{{--   <div class="card mb-3">
-  	<div class="card-body">
-  		<div class="row">
-  			<div class="col-12 col-md-3 text-center">
-  				<div class="icon-wrapper">
-  					<i class="fas fa-exclamation-circle fa-3x text-light"></i>
-  				</div>
-  			</div>
-  			<div class="col-12 col-md-9 d-flex align-items-center">
-  				<div class="text-center">
-	  				<p class="h3 font-weight-bold mb-0">Work In Progress</p>
-	  				<p class="font-weight-light mb-0">We haven't finished it yet, it will be updated soon!</p>
-  				</div>
-  			</div>
-  		</div>
-  	</div>
-  </div>
- --}}
   <p class="lead py-4">We are committed to building a fun, easy to use photo sharing platform that is safe and secure for everyone.</p>
 
   <div class="card border-left-blue mb-3">
