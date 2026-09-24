@@ -8,17 +8,6 @@
 	<hr>
 	<form method="post">
 		@csrf
-		<div class="form-check pb-3 d-none">
-			<input class="form-check-input" type="checkbox" name="top" {{$top ? 'checked':''}}>
-			<label class="form-check-label font-weight-bold" for="">{{__('settings.security.show_text_only_posts')}}</label>
-			<p class="text-muted small help-text">{{__('settings.security.show_text_only_posts_from_accounts_you_follow_home_etc')}}</p>
-		</div>
-		<div class="form-check pb-3 d-none">
-			<input class="form-check-input" type="checkbox" name="replies" {{$replies ? 'checked':''}}>
-			<label class="form-check-label font-weight-bold" for="">{{__('settings.security.show_replies')}}</label>
-			<p class="text-muted small help-text">{{__('settings.security.show_replies_from_accounts_you_follow_home_timeline_only')}}</p>
-		</div>
-
         <div class="form-check pb-3">
             <input class="form-check-input" type="checkbox" name="enable_reblogs" {{$userSettings['enable_reblogs'] ? 'checked':''}}>
             <label class="form-check-label font-weight-bold" for="">{{__('settings.security.show_reblogs')}}</label>

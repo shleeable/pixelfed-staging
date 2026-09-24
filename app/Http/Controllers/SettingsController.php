@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
 class SettingsController extends Controller
@@ -247,9 +246,6 @@ class SettingsController extends Controller
     public function timelineSettings(Request $request): View
     {
         $uid = $request->user()->id;
-        $pid = $request->user()->profile_id;
-        $top = Redis::zscore('pf:tl:top', $pid) != false;
-        $replies = Redis::zscore('pf:tl:replies', $pid) != false;
         $userSettings = UserSetting::firstOrCreate([
             'user_id' => $uid,
         ]);
@@ -266,19 +262,16 @@ class SettingsController extends Controller
                 $userSettings->other);
         }
 
-        return view('settings.timeline', ['top' => $top, 'replies' => $replies, 'userSettings' => $userSettings]);
+        return view('settings.timeline', ['userSettings' => $userSettings]);
     }
 
     public function updateTimelineSettings(Request $request): RedirectResponse
     {
-        $pid = $request->user()->profile_id;
         $uid = $request->user()->id;
         $this->validate($request, [
             'enable_reblogs' => 'sometimes',
             'photo_reblogs_only' => 'sometimes',
         ]);
-        Redis::zrem('pf:tl:top', $pid);
-        Redis::zrem('pf:tl:replies', $pid);
         $userSettings = UserSetting::firstOrCreate([
             'user_id' => $uid,
         ]);
