@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Groups;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\GroupHashtag;
-use App\Models\GroupPost;
 use App\Models\GroupPostHashtag;
 use App\Services\Groups\GroupPostService;
 use App\Services\Groups\GroupsLikeService;
@@ -76,25 +75,6 @@ class GroupsTopicController extends Controller
         if (! $hashtag) {
             return [];
         }
-
-        // $posts = GroupPost::whereGroupId($gid)
-        //  ->select('status_hashtags.*', 'group_posts.*')
-        //  ->where('status_hashtags.hashtag_id', $hashtag->id)
-        //  ->join('status_hashtags', 'group_posts.status_id', '=', 'status_hashtags.status_id')
-        //  ->orderByDesc('group_posts.status_id')
-        //  ->simplePaginate($limit)
-        //  ->map(function($gp) use($pid) {
-        //      $status = StatusService::get($gp['status_id'], false);
-        //      if(!$status) {
-        //          return false;
-        //      }
-        //      $status['favourited'] = (bool) LikeService::liked($pid, $gp['status_id']);
-        //      $status['favourites_count'] = LikeService::count($gp['status_id']);
-        //      $status['pf_type'] = $gp['type'];
-        //      $status['visibility'] = 'public';
-        //      $status['url'] = $gp->url();
-        //      return $status;
-        //  });
 
         $posts = GroupPostHashtag::whereGroupId($gid)
             ->whereHashtagId($hashtag->id)
