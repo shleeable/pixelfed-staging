@@ -46,31 +46,6 @@ class AccountController extends Controller
         return view('account.activity');
     }
 
-    public function followingActivity(Request $request): View
-    {
-        $this->validate($request, [
-            'page' => 'nullable|min:1|max:3',
-            'a' => 'nullable|alpha_dash',
-        ]);
-
-        $action = $request->input('a');
-        $allowed = ['like', 'follow'];
-        $timeago = now()->subMonths(3);
-
-        $profile = $request->user()->profile;
-        $following = $profile->following->pluck('id');
-
-        $notifications = Notification::whereIn('actor_id', $following)
-            ->whereIn('action', $allowed)
-            ->where('actor_id', '<>', $profile->id)
-            ->where('profile_id', '<>', $profile->id)
-            ->whereDate('created_at', '>', $timeago)
-            ->orderBy('notifications.created_at', 'desc')
-            ->simplePaginate(30);
-
-        return view('account.following', ['profile' => $profile, 'notifications' => $notifications]);
-    }
-
     public function direct(): View
     {
         return view('account.direct');
