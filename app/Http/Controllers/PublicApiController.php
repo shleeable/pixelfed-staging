@@ -674,29 +674,6 @@ class PublicApiController extends Controller
         return response()->json($res);
     }
 
-    public function relationships(Request $request): JsonResponse
-    {
-        if (! $request->user()) {
-            return response()->json([]);
-        }
-
-        $pid = $request->user()->profile_id;
-
-        $this->validate($request, [
-            'id' => 'required|array|min:1|max:20',
-            'id.*' => 'required|integer',
-        ]);
-        $ids = collect($request->input('id'));
-        $res = $ids->filter(function ($v) use ($pid) {
-            return $v != $pid;
-        })
-            ->map(function ($id) use ($pid) {
-                return RelationshipService::get($pid, $id);
-            });
-
-        return response()->json($res);
-    }
-
     public function account(Request $request, $id): JsonResponse
     {
         $res = AccountService::get($id);
