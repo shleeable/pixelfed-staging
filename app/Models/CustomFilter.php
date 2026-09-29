@@ -19,9 +19,7 @@ use Illuminate\Support\Facades\Log;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Profile|null $account
- * @property-read mixed $expires_in
  * @property mixed $filter_action
- * @property bool $irreversible
  * @property mixed $title
  * @property-read Collection<int, CustomFilterKeyword> $keywords
  * @property-read int|null $keywords_count
@@ -59,24 +57,7 @@ class CustomFilter extends Model
         ];
     }
 
-    const VALID_CONTEXTS = [
-        'home',
-        'notifications',
-        'public',
-        'thread',
-        'account',
-    ];
-
     const MAX_STATUSES_PER_FILTER = 10;
-
-    const EXPIRATION_DURATIONS = [
-        1800,   // 30 minutes
-        3600,   // 1 hour
-        21600,  // 6 hours
-        43200,  // 12 hours
-        86400,  // 1 day
-        604800, // 1 week
-    ];
 
     const ACTION_WARN = 0;
 
@@ -148,37 +129,6 @@ class CustomFilter extends Model
     public function setTitleAttribute($value)
     {
         $this->attributes['phrase'] = $value;
-    }
-
-    public function setFilterActionAttribute($value)
-    {
-        $this->attributes['action'] = $value;
-    }
-
-    public function setIrreversibleAttribute($value)
-    {
-        $this->attributes['action'] = $value ? self::ACTION_HIDE : self::ACTION_WARN;
-    }
-
-    public function getIrreversibleAttribute(): bool
-    {
-        return $this->action === self::ACTION_HIDE;
-    }
-
-    public function getExpiresInAttribute()
-    {
-        if ($this->expires_at === null) {
-            return null;
-        }
-
-        $now = now();
-        foreach (self::EXPIRATION_DURATIONS as $duration) {
-            if ($now->addSeconds($duration)->gte($this->expires_at)) {
-                return $duration;
-            }
-        }
-
-        return null;
     }
 
     public function scopeUnexpired($query)
