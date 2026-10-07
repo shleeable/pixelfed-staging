@@ -543,47 +543,6 @@ class ApiV2Controller extends Controller
     }
 
     /**
-     * Alternative method using Laravel's cursor pagination (if you prefer)
-     */
-    private function getDescendantsCursorPaginated($statusId, $limit, $cursor, $pe, $pid): array
-    {
-        $filters = UserFilterService::filters($pid);
-
-        $query = DB::table('statuses')
-            ->select(['id', 'created_at', 'profile_id'])
-            ->where('in_reply_to_id', $statusId)
-            ->whereNotIn('profile_id', $filters)
-            ->orderBy('created_at', 'desc')
-            ->orderBy('id', 'desc');
-
-        $paginated = $query->cursorPaginate($limit, ['*'], 'cursor', $cursor);
-
-        $descendants = collect($paginated->items())->map(function ($row) use ($pe, $pid) {
-            $status = $pe ?
-                StatusService::get($row->id, false) :
-                StatusService::getMastodon($row->id, false);
-
-            if (! $status || ! isset($status['account'])) {
-                return null;
-            }
-
-            $status['favourited'] = LikeService::liked($pid, $status['id']);
-            $status['reblogged'] = ReblogService::get($pid, $status['id']);
-
-            return $status;
-        })->filter()->values();
-
-        return [
-            'data' => $descendants,
-            'pagination' => [
-                'next_cursor' => $paginated->nextCursor()?->encode(),
-                'prev_cursor' => $paginated->previousCursor()?->encode(),
-                'has_more' => $paginated->hasMorePages(),
-            ],
-        ];
-    }
-
-    /**
      * GET /api/v2/statuses/{id}/descendants
      *
      * Dedicated endpoint for just descendants with pagination
