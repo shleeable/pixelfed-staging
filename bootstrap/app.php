@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\AccountInterstitial;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Api\Admin as ApiAdmin;
 use App\Http\Middleware\FrameGuard;
@@ -128,7 +127,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'guest' => RedirectIfAuthenticated::class,
             'signed' => ValidateSignature::class,
             'throttle' => ThrottleRequests::class,
-            'interstitial' => AccountInterstitial::class,
             'scopes' => CheckToken::class,
             'scope' => CheckTokenForAnyScope::class,
             'restricted' => RestrictedAccess::class,
