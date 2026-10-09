@@ -149,11 +149,6 @@
       <code><![CDATA[HasFactory]]></code>
     </MissingTemplateParam>
   </file>
-  <file src="app/Models/GroupEvent.php">
-    <MissingTemplateParam>
-      <code><![CDATA[HasFactory]]></code>
-    </MissingTemplateParam>
-  </file>
   <file src="app/Models/GroupHashtag.php">
     <MissingTemplateParam>
       <code><![CDATA[HasFactory]]></code>
