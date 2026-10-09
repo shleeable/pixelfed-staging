@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * @property int $id
@@ -20,8 +19,6 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $read_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Profile|null $author
- * @property-read Profile|null $recipient
  * @property-read Status|null $status
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DirectMessage newModelQuery()
@@ -47,25 +44,5 @@ class DirectMessage extends Model
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'status_id', 'id');
-    }
-
-    public function url(): string
-    {
-        return config('app.url').'/account/direct/m/'.$this->status_id;
-    }
-
-    public function author(): BelongsTo
-    {
-        return $this->belongsTo(Profile::class, 'from_id', 'id');
-    }
-
-    public function recipient(): BelongsTo
-    {
-        return $this->belongsTo(Profile::class, 'to_id', 'id');
-    }
-
-    public function me(): bool
-    {
-        return Auth::user()->profile->id === $this->from_id;
     }
 }
