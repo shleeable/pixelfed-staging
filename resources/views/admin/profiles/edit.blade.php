@@ -14,9 +14,6 @@
         <div class="card-body text-center">
           <img src="{{$profile->avatarUrl()}}" class="box-shadow rounded-circle" width="128px" height="128px">
         </div>
-        {{-- <div class="card-footer bg-white">
-          <p class="font-weight-bold mb-0 small">Last updated: {{$profile->avatar->updated_at->diffForHumans()}}</p>
-        </div> --}}
       </div>
     </div>
     <div class="col-12 col-md-8">
@@ -64,17 +61,6 @@
           @endif
         </tbody>
       </table>
-      {{-- <div class="py-3">
-        <p class="font-weight-bold mb-0">
-          {{$profile->username}}
-        </p>
-        <p class="h3 font-weight-bold">
-          {{$profile->emailUrl()}}
-        </p>
-        <p class="font-weight-bold mb-0 text-muted">
-          Member Since: {{$profile->created_at->format('M Y')}}
-        </p>
-      </div> --}}
     </div>
   </div>
   <div class="row mb-3">
@@ -137,33 +123,6 @@
   </div>
 
   <hr>
-  {{-- <div class="mx-3">
-  	  <div class="sub-title h4 font-weight-bold mb-4">
-  	  	Account Settings
-  	  </div>
-	  <form>
-	  	<div class="form-group">
-	  		<label class="font-weight-bold text-muted">Display Name</label>
-	  		<input type="text" class="form-control" value="{{$user->name}}">
-	  	</div>
-	  	<div class="form-group">
-	  		<label class="font-weight-bold text-muted">Username</label>
-	  		<input type="text" class="form-control" value="{{$user->username}}">
-	  	</div>
-	  	<div class="form-group">
-	  		<label class="font-weight-bold text-muted">Email address</label>
-	  		<input type="email" class="form-control" value="{{$user->email}}" placeholder="Enter email">
-	        <p class="help-text small text-muted font-weight-bold">
-	          @if($user->email_verified_at)
-	          <span class="text-success">Verified</span> for {{$user->email_verified_at->diffForHumans()}}
-	          @else
-	          <span class="text-danger">Unverified</span> email.
-	          @endif
-	        </p>
-	  	</div>
-	  </form>
-  </div>
-  <hr> --}}
   <div class="mx-3">
       <div class="sub-title h4 font-weight-bold mb-4">
         Account Actions
