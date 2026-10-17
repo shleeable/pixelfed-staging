@@ -8,31 +8,6 @@
 				<li class="nav-item mx-4 {{request()->is('*admin/dashboard')?'active':''}}">
 					<a class="nav-link" href="{{route('admin.home')}}">Dashboard</a>
 				</li>
-				{{--<li class="nav-item mx-2 {{request()->is('*messages*')?'active':''}}">
-					<a class="nav-link font-weight-lighter text-muted" href="{{route('admin.messages')}}">Configuration</a>
-				</li>
-				<li class="nav-item mx-2 {{request()->is('*messages*')?'active':''}}">
-					<a class="nav-link font-weight-lighter text-muted" href="{{route('admin.messages')}}">Content</a>
-				</li>
-				<li class="nav-item mx-2 {{request()->is('*messages*')?'active':''}}">
-					<a class="nav-link font-weight-lighter text-muted" href="{{route('admin.messages')}}">Federation</a>
-				</li>
-				<li class="nav-item mx-2 {{request()->is('*messages*')?'active':''}}">
-					<a class="nav-link font-weight-lighter text-muted" href="{{route('admin.messages')}}">Moderation</a>
-				</li>
-				<li class="nav-item mx-2 {{request()->is('*messages*')?'active':''}}">
-					<a class="nav-link font-weight-lighter text-muted" href="{{route('admin.messages')}}">Platform</a>
-				</li>
-				<li class="nav-item mx-2 align-self-center text-lighter">|</li>
-				<li class="nav-item mx-2 {{request()->is('*messages*')?'active':''}}">
-					<a class="nav-link font-weight-lighter text-muted" href="{{route('admin.messages')}}">Media</a>
-				</li>
-				<li class="nav-item mx-2 {{request()->is('*messages*')?'active':''}}">
-					<a class="nav-link font-weight-lighter text-muted" href="{{route('admin.messages')}}">Profiles</a>
-				</li>
-				<li class="nav-item mx-2 {{request()->is('*messages*')?'active':''}}">
-					<a class="nav-link font-weight-lighter text-muted" href="{{route('admin.messages')}}">Statuses</a>
-				</li> --}}
 				<li class="nav-item mx-4 {{request()->is('*messages*')?'active':''}}">
 					<a class="nav-link font-weight-lighter text-muted" href="{{route('admin.messages')}}">Messages</a>
 				</li>
