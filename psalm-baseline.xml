@@ -378,11 +378,6 @@
       <code><![CDATA[WebSocketHandler]]></code>
     </UndefinedClass>
   </file>
-  <file src="database/factories/ActivityFactory.php">
-    <MissingTemplateParam>
-      <code><![CDATA[ActivityFactory]]></code>
-    </MissingTemplateParam>
-  </file>
   <file src="database/factories/FollowerFactory.php">
     <MissingTemplateParam>
       <code><![CDATA[FollowerFactory]]></code>
