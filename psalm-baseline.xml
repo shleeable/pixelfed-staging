@@ -360,24 +360,6 @@
       <code><![CDATA[$re = &self::$patterns]]></code>
     </UnsupportedPropertyReferenceUsage>
   </file>
-  <file src="config/websockets.php">
-    <UndefinedClass>
-      <code><![CDATA[Authorize]]></code>
-      <code><![CDATA[ConfigAppManager]]></code>
-      <code><![CDATA[DatabaseStore]]></code>
-      <code><![CDATA[FetchChannel]]></code>
-      <code><![CDATA[FetchChannels]]></code>
-      <code><![CDATA[FetchUsers]]></code>
-      <code><![CDATA[FulfilledPromise]]></code>
-      <code><![CDATA[HealthHandler]]></code>
-      <code><![CDATA[LocalChannelManager]]></code>
-      <code><![CDATA[MemoryCollector]]></code>
-      <code><![CDATA[RedisChannelManager]]></code>
-      <code><![CDATA[RedisCollector]]></code>
-      <code><![CDATA[TriggerEvent]]></code>
-      <code><![CDATA[WebSocketHandler]]></code>
-    </UndefinedClass>
-  </file>
   <file src="database/factories/ActivityFactory.php">
     <MissingTemplateParam>
       <code><![CDATA[ActivityFactory]]></code>
