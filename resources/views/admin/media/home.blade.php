@@ -27,22 +27,6 @@
 						</div>
 					</form>
 				</div>
-				{{-- <div class="dropdown-divider"></div>
-				<p class="text-wrap p-1 p-md-3 text-center">
-					<a class="badge badge-primary p-2 mb-2 btn-filter" href="#" data-filter="cw" data-filter-state="true" data-toggle="tooltip" title="Show Content Warning media">CW</a> 
-					<a class="badge badge-primary p-2 mb-2 btn-filter" href="#" data-filter="remote" data-filter-state="true" data-toggle="tooltip" title="Show remote media">Remote Media</a> 
-					<a class="badge badge-primary p-2 mb-2 btn-filter" href="#" data-filter="images" data-filter-state="true" data-toggle="tooltip" title="Show image media">Images</a> 
-					<a class="badge badge-primary p-2 mb-2 btn-filter" href="#" data-filter="videos" data-filter-state="true" data-toggle="tooltip" title="Show video media">Videos</a> 
-					<a class="badge badge-light p-2 mb-2 btn-filter" href="#" data-filter="stories" data-filter-state="false" data-toggle="tooltip" title="Show stories media">Stories</a> 
-					<a class="badge badge-light p-2 mb-2 btn-filter" href="#" data-filter="banned" data-filter-state="false" data-toggle="tooltip" title="Show banned media">Banned</a> 
-					<a class="badge badge-light p-2 mb-2 btn-filter" href="#" data-filter="reported" data-filter-state="false" data-toggle="tooltip" title="Show reported media">Reported</a> 
-					<a class="badge badge-light p-2 mb-2 btn-filter" href="#" data-filter="unlisted" data-filter-state="false" data-toggle="tooltip" title="Show unlisted media">Unlisted</a> 
-				</p> --}}
-				{{-- <div class="dropdown-divider"></div>
-				<a class="dropdown-item font-weight-light" href="?filter=local&layout={{request()->input('layout')}}">Local Media Only</a>
-				<a class="dropdown-item font-weight-light" href="?filter=remote&layout={{request()->input('layout')}}">Remote Media Only</a>
-				<div class="dropdown-divider"></div>
-				<a class="dropdown-item font-weight-light" href="?layout={{request()->input('layout')}}">Show all</a> --}}
 			</div>
 		</div>
 	</span>
@@ -163,50 +147,6 @@
 	$(document).ready(function() {
 		$('.filesize').each(function(k,v) {
 			$(this).text(filesize(v.getAttribute('data-size')))
-		});
-
-		window.filters = {
-			default() {
-				return ['cw', 'remote', 'images', 'videos']
-			},
-			active() {
-				return $('.btn-filter[data-filter-state="true"]');
-			},
-			whitelist() {
-				return [
-					'cw',
-					'remote',
-					'images',
-					'videos',
-					'stories',
-					'banned',
-					'reported',
-					'unlisted',
-				];
-			},
-			allowed(filter) {
-				return _.indexOf(filters.whitelist(), filter) != -1;
-			},
-			buildQueryFragment(){
-				window.filters.active().each(function(k,v) {
-				})
-			}
-		}
-		
-		$('.badge.btn-filter').on('click', function(e) {
-			e.preventDefault();
-			let el = $(this);
-			let filter = el.data('filter');
-			let state = el.data('filter-state');
-			if(state == false) {
-				el.removeClass('badge-light')
-				el.addClass('badge-primary')
-				el.attr('data-filter-state', 'false')
-			} else {
-				el.removeClass('badge-primary')		
-				el.addClass('badge-light')
-				el.attr('data-filter-state', 'true')
-			}
 		});
 	});
 </script>
