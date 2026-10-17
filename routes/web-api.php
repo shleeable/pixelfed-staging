@@ -15,7 +15,6 @@ use App\Http\Controllers\MediaTagController;
 use App\Http\Controllers\NewsroomController;
 use App\Http\Controllers\PollController;
 use App\Http\Controllers\PortfolioController;
-use App\Http\Controllers\ProfileSponsorController;
 use App\Http\Controllers\PublicApiController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SoftwareUpdateController;
@@ -141,7 +140,6 @@ Route::domain(config('pixelfed.domain.app'))->middleware(['localization'])->grou
             // Route::post('status/compose', [InternalApiController::class, 'composePost'])->middleware('throttle:maxPostsPerHour,60')->middleware('throttle:maxPostsPerDay,1440');
             Route::post('discover/tag/subscribe', [HashtagFollowController::class, 'store']);
             Route::get('discover/tag/list', [HashtagFollowController::class, 'getTags']);
-            // Route::get('profile/sponsor/{id}', [ProfileSponsorController::class, 'get']);
             Route::get('bookmarks', [InternalApiController::class, 'bookmarks']);
             Route::get('collection/items/{id}', [CollectionController::class, 'getItems']);
             Route::post('collection/item', [CollectionController::class, 'storeId']);
