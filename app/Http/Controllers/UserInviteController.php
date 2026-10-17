@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\UserInviteMail;
 use App\Models\User;
 use App\Models\UserInvite;
 use App\Services\EmailService;
@@ -10,7 +9,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class UserInviteController extends Controller
@@ -65,60 +63,5 @@ class UserInviteController extends Controller
         // Mail::to($email)->send(new UserInviteMail($invite));
 
         return redirect(route('settings.invites'));
-    }
-
-    public function redeem(Request $request, $key, $token): View
-    {
-        abort_if(! config('pixelfed.user_invites.enabled'), 404);
-        // if($request->user()) {
-        //  return redirect('/');
-        // }
-        $invite = UserInvite::where('key', $key)
-            ->where('token', $token)
-            ->first();
-
-        return view('invite.landing', ['invite' => $invite]);
-        // return response()->json([
-        //  'key' => $key,
-        //  'token' => $token,
-        //  'invite' => $invite->url()
-        // ], 200, [], JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
-    }
-
-    public function redeemVerify(Request $request, $key, $token): RedirectResponse
-    {
-        abort_if(! config('pixelfed.user_invites.enabled'), 404);
-        // if($request->user()) {
-        //  return redirect('/');
-        // }
-
-        $this->validate($request, [
-            // 'email' => 'required|email|exists:user_invites,email',
-            'email' => 'required|email',
-        ]);
-
-        $invite = UserInvite::where('key', $key)
-            ->where('token', $token)
-            ->where('email', $request->input('email'))
-            ->firstOrFail();
-
-        session([
-            'invite_verified' => true,
-            'invite_id' => $invite->id,
-        ]);
-
-        return redirect('/i/invite/verified');
-    }
-
-    public function verified(Request $request): View
-    {
-        abort_if(! config('pixelfed.user_invites.enabled'), 404);
-        // if($request->user()) {
-        //  return redirect('/');
-        // }
-        abort_if(! $request->session()->has('invite_verified'), 404);
-        $invite = UserInvite::find($request->session()->get('invite_id'));
-
-        return view('invite.verified', ['invite' => $invite]);
     }
 }
