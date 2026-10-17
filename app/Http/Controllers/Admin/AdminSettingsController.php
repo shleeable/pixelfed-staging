@@ -308,28 +308,6 @@ trait AdminSettingsController
 
     public function settingsApiFetch(Request $request)
     {
-        $cloud_storage = ConfigCacheService::get('pixelfed.cloud_storage');
-        $cloud_disk = config('filesystems.cloud');
-        $cloud_ready = ! empty(config('filesystems.disks.'.$cloud_disk.'.key')) && ! empty(config('filesystems.disks.'.$cloud_disk.'.secret'));
-        $types = explode(',', ConfigCacheService::get('pixelfed.media_types'));
-        $rules = ConfigCacheService::get('app.rules') ? json_decode(ConfigCacheService::get('app.rules'), true) : [];
-        $jpeg = in_array('image/jpg', $types) || in_array('image/jpeg', $types);
-        $png = in_array('image/png', $types);
-        $gif = in_array('image/gif', $types);
-        $mp4 = in_array('video/mp4', $types);
-        $webp = in_array('image/webp', $types);
-
-        $availableAdmins = User::whereIsAdmin(true)->get();
-        $currentAdmin = config_cache('instance.admin.pid') ? AccountService::get(config_cache('instance.admin.pid'), true) : null;
-        $openReg = (bool) config_cache('pixelfed.open_registration');
-        $curOnboarding = (bool) config_cache('instance.curated_registration.enabled');
-        $regState = $openReg ? 'open' : ($curOnboarding ? 'filtered' : 'closed');
-        $accountMigration = (bool) config_cache('federation.migration');
-        $autoFollow = config_cache('account.autofollow_usernames');
-        if (strlen($autoFollow) > 3) {
-            $autoFollow = explode(',', $autoFollow);
-        }
-
         $res = AdminSettingsService::getAll();
 
         return response()->json($res);
