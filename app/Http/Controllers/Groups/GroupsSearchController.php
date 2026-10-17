@@ -71,7 +71,6 @@ class GroupsSearchController extends Controller
                 $gi->to_local = true;
                 $gi->from_local = $u->domain == null;
                 $gi->save();
-                // GroupMemberInvite::dispatch($gi);
             });
 
         return [200];
