@@ -193,16 +193,3 @@
   }
 </style>
 @endpush
-
-@push('scripts')
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('.reactions').hide();
-    $('.more-comments').hide();
-    $('.card-footer').hide();
-    new Vue({ 
-      el: '#content'
-    });
-  });
-</script>
-@endpush
