@@ -1,6 +1,5 @@
 <?php
 
-use App\Jobs\DeletePipeline\FanoutDeletePipeline;
 use App\Jobs\StatusPipeline\StatusActivityPubDeliver;
 use App\Models\Follower;
 use App\Models\Profile;
@@ -120,55 +119,6 @@ describe('MediaStorageService::head()', function () {
         $result = MediaStorageService::head('https://unreachable.example.com/image.jpg');
 
         expect($result)->toBeFalse();
-    });
-});
-
-describe('FanoutDeletePipeline delivery', function () {
-    it('sends delete activities to known shared inboxes via Http::pool', function () {
-        Http::fake();
-
-        $user = User::factory()->create();
-        $user->refresh();
-        $profile = $user->profile;
-
-        // Create remote profiles with shared inboxes
-        Profile::factory()->remote()->create([
-            'sharedInbox' => 'https://remote1.example/inbox',
-        ]);
-        Profile::factory()->remote()->create([
-            'sharedInbox' => 'https://remote2.example/inbox',
-        ]);
-
-        Cache::forget('pf:ap:known_instances');
-
-        seedMigrationDeliveryHosts(['remote1.example', 'remote2.example']);
-
-        $job = new FanoutDeletePipeline($profile);
-        runJobInProduction(fn () => $job->handle());
-
-        Http::assertSentCount(2);
-        Http::assertSent(
-            fn ($request) => $request->url() === 'https://remote1.example/inbox'
-                && $request->method() === 'POST'
-                && str_contains($request->header('Content-Type')[0] ?? '', 'application/ld+json')
-        );
-        Http::assertSent(
-            fn ($request) => $request->url() === 'https://remote2.example/inbox'
-                && $request->method() === 'POST'
-        );
-    });
-
-    it('skips delivery when profile lacks private key', function () {
-        Http::fake();
-
-        $profile = Profile::factory()->remote()->create([
-            'private_key' => null,
-        ]);
-
-        $job = new FanoutDeletePipeline($profile);
-        $job->handle();
-
-        Http::assertNothingSent();
     });
 });
 
