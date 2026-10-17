@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -45,7 +44,6 @@ use Illuminate\Support\Facades\Storage;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Story newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Story newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Story query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Story toAudience()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Story whereActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Story whereBearcapToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Story whereCanReact($value)
@@ -113,13 +111,6 @@ class Story extends Model
         return $this->hasMany(StoryView::class);
     }
 
-    public function seen($pid = false)
-    {
-        return StoryView::whereStoryId($this->id)
-            ->whereProfileId(Auth::user()->profile->id)
-            ->exists();
-    }
-
     public function permalink()
     {
         $username = $this->profile->username;
@@ -142,28 +133,6 @@ class Story extends Model
     public function bearcapUrl()
     {
         return Bearcap::encode($this->url(), $this->bearcap_token);
-    }
-
-    /**
-     * @return list
-     */
-    public function scopeToAudience($scope): array
-    {
-        $res = [];
-
-        switch ($scope) {
-            case 'to':
-                $res = [
-                    $this->profile->permalink('/followers'),
-                ];
-                break;
-
-            default:
-                $res = [];
-                break;
-        }
-
-        return $res;
     }
 
     public function toAdminEntity(): array
