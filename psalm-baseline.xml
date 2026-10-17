@@ -129,11 +129,6 @@
       <code><![CDATA[HasFactory]]></code>
     </MissingTemplateParam>
   </file>
-  <file src="app/Models/GroupActivityGraph.php">
-    <MissingTemplateParam>
-      <code><![CDATA[HasFactory]]></code>
-    </MissingTemplateParam>
-  </file>
   <file src="app/Models/GroupBlock.php">
     <MissingTemplateParam>
       <code><![CDATA[HasFactory]]></code>
