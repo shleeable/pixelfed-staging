@@ -67,20 +67,6 @@ class FollowerService
         }
     }
 
-    public static function followers($id, $start = 0, $stop = 10)
-    {
-        self::cacheSyncCheck($id, 'followers');
-
-        return Redis::zrevrange(self::FOLLOWERS_KEY.$id, $start, $stop);
-    }
-
-    public static function following($id, $start = 0, $stop = 10)
-    {
-        self::cacheSyncCheck($id, 'following');
-
-        return Redis::zrevrange(self::FOLLOWING_KEY.$id, $start, $stop);
-    }
-
     /**
      * Return the profile ids a profile follows, including the profile's own
      * id, as an array. Cached under the 'profile:following:{pid}' key, which
@@ -96,22 +82,6 @@ class FollowerService
                 ->push($pid)
                 ->toArray();
         });
-    }
-
-    public static function followersPaginate($id, $page = 1, $limit = 10)
-    {
-        $start = $page == 1 ? 0 : $page * $limit - $limit;
-        $end = $start + ($limit - 1);
-
-        return self::followers($id, $start, $end);
-    }
-
-    public static function followingPaginate($id, $page = 1, $limit = 10)
-    {
-        $start = $page == 1 ? 0 : $page * $limit - $limit;
-        $end = $start + ($limit - 1);
-
-        return self::following($id, $start, $end);
     }
 
     public static function followerCount($id, $warmCache = true)
