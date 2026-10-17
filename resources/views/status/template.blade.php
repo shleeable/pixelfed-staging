@@ -45,21 +45,6 @@
       </div>
     </div>
   </div>
-  @php($status = $item)
-  @switch($status->viewType())
-    @case('image')
-      @include('status.timeline.photo')
-    @break
-    @case('album')
-      @include('status.timeline.album')
-    @break
-    @case('video')
-      @include('status.timeline.video')
-    @break
-    @case('video-album')
-      @include('status.timeline.video-album')
-    @break
-  @endswitch
   <div class="card-body">
     <div class="reactions my-1">
       <form class="d-inline-flex like-form pr-3" method="post" action="/i/like" style="display: inline;" data-id="{{$item->id}}" data-action="like" data-count="{{$item->likes_count}}">
