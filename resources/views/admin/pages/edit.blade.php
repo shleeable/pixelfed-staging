@@ -15,15 +15,11 @@
     </div>
 </div>
 <div class="container-fluid mt-4">
-    <input type="hidden" id="slug" name="slug" value="{{$page->slug}}">
     <input class="form-control form-control-lg" id="title" name="title" placeholder="Title" value="{{$page->title}}">
     <p class="small text-muted">
       Page URL: <span class="page-url font-weight-bold">{{$page->url()}}</span>
       {{-- <span class="pl-1"><a href="#" class="font-weight-bold">Edit</a></span> --}}
     </p>
-    <div id="editor" class="d-none" style="height: 400px">
-      {!!$page->content!!}
-    </div>
     <div id="rawEditor" style="height: 400px">
       <label class="font-weight-bold">Raw HTML</label>
       <textarea class="form-control" rows="8" id="rawText" v-pre>{{$page->content}}</textarea>
@@ -48,14 +44,6 @@
 
 @push('styles')
 <style type="text/css">
-.ql-container {
-    box-sizing: border-box;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    font-size: 16px;
-    height: 100%;
-    margin: 0px;
-    position: relative;
-}
 .custom-control {
     padding-left: 3.5rem;
 }
@@ -63,17 +51,13 @@
 @endpush
 @push('scripts')
 <script>
-    window.useRaw = true;
-
     $('.btn-save').on('click', function(e) {
         e.preventDefault();
         let confirm = window.confirm('Are you sure you want to save this page?');
         if(confirm !== true) {
             return;
         }
-        let html = window.useRaw ?
-        $('#rawText').val() :
-        editor.root.innerHTML;
+        let html = $('#rawText').val();
         let title = $('#title').val();
         let active = $('#activeSwitch')[0].checked;
         axios.post(window.location.href, {
@@ -102,10 +86,5 @@
             });
         }
     });
-
-    $('#title').on('change input', function(e) {
-        e.preventDefault();
-        let title = this.value.split(' ').join('-').toLowerCase();
-    })
 </script>
 @endpush
